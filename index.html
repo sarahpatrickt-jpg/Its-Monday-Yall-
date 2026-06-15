@@ -123,6 +123,15 @@
   .wc-score{font-family:var(--anton);font-size:28px;letter-spacing:1px;white-space:nowrap;color:var(--ink);text-align:center}
   .wc-score .vs{font-size:14px;color:var(--dim);font-family:var(--cond);font-weight:700}
   .wc-score.vsonly{font-size:15px}
+  .wc-odds{border-top:1px solid var(--divider);margin-top:-2px;padding-top:12px}
+  .wc-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--badge)}
+  .wc-bar i{display:block;height:100%}
+  .wc-bar .h{background:var(--accent)}
+  .wc-bar .d{background:var(--ghost-2)}
+  .wc-bar .a{background:var(--dim-2)}
+  .wc-odds-lbl{display:flex;justify-content:space-between;gap:6px;font-family:var(--cond);font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--bright);margin-top:8px}
+  .wc-odds-lbl .mid{color:var(--muted)}
+  .wc-odds-src{font-family:var(--cond);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim-2);margin-top:6px}
   @media(max-width:980px){.wc-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:560px){.wc-grid{grid-template-columns:1fr}}
 
@@ -577,13 +586,69 @@
     setInterval(load,60000);
   })();
 
-  // ===== WORLD CUP CENTER (free ESPN feed, no key) =====
+  // ===== WORLD CUP CENTER — live scores (ESPN) + market odds (Polymarket) =====
   (function(){
     var sec=document.getElementById('wcSection'), grid=document.getElementById('wcGrid');
-    if(!sec||!grid||!window.fetch) { if(sec) sec.style.display='none'; return; }
+    if(!sec||!grid||!window.fetch||!window.Promise) { if(sec) sec.style.display='none'; return; }
     var API='https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard';
+    var lastEvents=null, oddsWins=[], oddsDraws=[], oddsStarted=false;
     function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-    function team(t,decided){
+    var STOP={ir:1,fc:1,sc:1,afc:1,of:1};
+    function toks(n){var o=[]; String(n||'').toLowerCase().split(/[^a-z]+/).forEach(function(t){if(t.length>=3&&!STOP[t])o.push(t);}); return o;}
+    function inter(a,b){for(var i=0;i<a.length;i++){if(b.indexOf(a[i])>-1)return true;} return false;}
+
+    // ----- Polymarket odds: parse flat markets, match by date + team name tokens -----
+    function parseMarkets(list){
+      (list||[]).forEach(function(m){
+        var pr; try{pr=JSON.parse(m.outcomePrices||'[]');}catch(e){return;}
+        if(pr[0]==null) return;
+        var q=m.question||'';
+        var mw=q.match(/^Will (.+) win on (\d{4}-\d{2}-\d{2})\?$/);
+        var md=q.match(/^Will (.+) vs\. (.+) end in a draw\?$/);
+        if(mw) oddsWins.push({tok:toks(mw[1]),date:mw[2],p:parseFloat(pr[0])});
+        else if(md) oddsDraws.push({a:toks(md[1]),b:toks(md[2]),p:parseFloat(pr[0])});
+      });
+    }
+    function dwithin(d1,d2){ // tolerate ±1 day (ESPN stores UTC; late kickoffs roll to next day vs Polymarket's match date)
+      var a=Date.parse(d1+'T00:00:00Z'), b=Date.parse(d2+'T00:00:00Z');
+      if(isNaN(a)||isNaN(b)) return d1===d2;
+      return Math.abs(a-b)<=86400000;
+    }
+    function lookupOdds(t1,t2,date){
+      if(!date) return null;
+      var ta=toks((t1.team||{}).displayName||(t1.team||{}).shortDisplayName||'');
+      var tb=toks((t2.team||{}).displayName||(t2.team||{}).shortDisplayName||'');
+      function fw(t){for(var i=0;i<oddsWins.length;i++){var w=oddsWins[i]; if(dwithin(w.date,date)&&inter(t,w.tok))return w.p;} return null;}
+      var pa=fw(ta), pb=fw(tb), pd=null;
+      for(var i=0;i<oddsDraws.length;i++){var d=oddsDraws[i]; if((inter(ta,d.a)&&inter(tb,d.b))||(inter(ta,d.b)&&inter(tb,d.a))){pd=d.p;break;}}
+      if(pa==null||pb==null||pd==null) return null;
+      var tot=pa+pb+pd; if(tot<=0) return null;
+      return {a:Math.round(pa/tot*100), d:Math.round(pd/tot*100), b:Math.round(pb/tot*100)};
+    }
+    function oddsBar(od,ab1,ab2){
+      return '<div class="wc-odds"><div class="wc-bar">'+
+        '<i class="h" style="width:'+od.a+'%"></i><i class="d" style="width:'+od.d+'%"></i><i class="a" style="width:'+od.b+'%"></i></div>'+
+        '<div class="wc-odds-lbl"><span>'+esc(ab1)+' '+od.a+'%</span><span class="mid">Draw '+od.d+'%</span><span>'+esc(ab2)+' '+od.b+'%</span></div>'+
+        '<div class="wc-odds-src">Win odds · Polymarket</div></div>';
+    }
+    function loadOdds(){
+      oddsWins=[]; oddsDraws=[];
+      var base='https://gamma-api.polymarket.com/markets?closed=false&active=true&tag=world-cup&order=volume24hr&ascending=false&limit=100&offset=';
+      Promise.all([0,100].map(function(off){
+        return fetch(base+off).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];});
+      })).then(function(pages){
+        pages.forEach(function(pg){ parseMarkets(pg&&pg.length?pg:(pg&&pg.data)||[]); });
+        if(lastEvents) renderEvents(lastEvents); // repaint cards now that odds exist
+      });
+    }
+    function startOdds(){
+      if(oddsStarted) return; oddsStarted=true;
+      loadOdds();
+      setInterval(loadOdds,300000); // odds drift slowly — refresh every 5 min
+    }
+
+    // ----- ESPN scores: render cards (with odds bar when available) -----
+    function teamBlk(t,decided){
       var tm=t.team||{}, logo=tm.logo||((tm.logos||[{}])[0]||{}).href||'';
       var cls='wc-team'+(decided&&!t.winner?' dim':'')+(decided&&t.winner?' win':'');
       var img=logo?'<img src="'+esc(logo)+'" alt="'+esc(tm.displayName||'')+'" onerror="this.style.visibility=\'hidden\'"/>':'';
@@ -609,18 +674,26 @@
           statusHtml='<span class="wc-status">'+esc(tlabel)+'</span>';
           center='<span class="wc-score vsonly"><span class="vs">vs</span></span>';
         }
+        var od=(!decided)?lookupOdds(t1,t2,(e.date||'').slice(0,10)):null;
+        var odsHtml=od?oddsBar(od,(t1.team||{}).abbreviation,(t2.team||{}).abbreviation):'';
         return '<div class="wc-card"><div class="wc-top">'+statusHtml+'<span class="wc-venue">'+esc(city)+'</span></div>'+
-          '<div class="wc-match">'+team(t1,decided)+center+team(t2,decided)+'</div></div>';
+          '<div class="wc-match">'+teamBlk(t1,decided)+center+teamBlk(t2,decided)+'</div>'+odsHtml+'</div>';
       }catch(err){return '';}
     }
-    function load(){
+    function renderEvents(events){
+      var html=(events||[]).map(card).join('');
+      if(html){ grid.innerHTML=html; sec.style.display=''; } else { sec.style.display='none'; }
+    }
+    function loadScores(){
       fetch(API).then(function(r){return r.ok?r.json():null;}).then(function(d){
-        var html=((d&&d.events)||[]).map(card).join('');
-        if(html){ grid.innerHTML=html; sec.style.display=''; } else { sec.style.display='none'; }
+        var ev=(d&&d.events)||[];
+        if(ev.length){ lastEvents=ev; renderEvents(ev); } else { sec.style.display='none'; }
       }).catch(function(){ if(!grid.querySelector('.wc-card')) sec.style.display='none'; });
     }
-    load();
-    setInterval(load,60000);
+    loadScores();
+    setInterval(loadScores,60000);
+    // Defer the heavier odds feed so it doesn't compete with first paint
+    setTimeout(startOdds,1200);
   })();
 
   // The Board league filter
