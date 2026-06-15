@@ -212,93 +212,109 @@
     <div class="dateline">
       <span id="weekof">Week of —</span><span class="d"></span>
       <!-- EDIT: re-label each season — Fall: Football · Boys Soccer · Girls Golf · Winter: Basketball · Spring: Baseball · Girls Soccer · Boys Golf -->
-      <span class="now" id="season">Spring Finals Edition</span><span class="d"></span>
-      <span>Football · Soccer · Basketball · Baseball · Golf</span>
+      <span class="now" id="season">Baseball Finals Edition</span><span class="d"></span>
+      <span>Semis Thu–Fri · Finals Sat · McLane Stadium, East Lansing</span>
     </div>
   </div>
 </div>
 
 <!-- ================= HEADLINERS ================= -->
-<!-- EDIT: 3–5 standout performances. Swap [brackets] for real, verified lines. No invented stats. -->
+<!-- Verified from MHSAA finals preview (records + hometowns). Team storylines, not player
+     stat lines (no player data to verify yet). The .quip lines are factual, not invented quotes. -->
 <section class="wrap sec">
   <div class="sec-head">
     <div style="display:flex;align-items:baseline;gap:16px">
-      <span class="title">This Week's Headliners</span>
-      <span class="subt">The Marquee</span>
+      <span class="title">Programs To Watch</span>
+      <span class="subt">Headed to McLane</span>
     </div>
   </div>
   <div class="marquee">
     <div class="star">
-      <span class="badge">Baseball</span>
-      <div class="name">[Athlete Name]</div>
-      <div class="meta">[School] · [Town]</div>
-      <div class="stat">[e.g. 4-for-4, 2 HR, 6 RBI in the D2 final]</div>
-      <div class="quip">"[Drop the It's Monday Y'all one-liner here.]"</div>
+      <span class="badge">Division 2</span>
+      <div class="name">GR Kenowa Hills</div>
+      <div class="meta">Grand Rapids · 35-2</div>
+      <div class="stat">Best record in the entire Final 16.</div>
+      <div class="quip">Two losses all spring. Nobody in the field has been harder to beat.</div>
     </div>
     <div class="star">
-      <span class="badge">Girls Soccer</span>
-      <div class="name">[Athlete Name]</div>
-      <div class="meta">[School] · [Town]</div>
-      <div class="stat">[e.g. hat trick + the game-winner in OT]</div>
-      <div class="quip">"[One-liner here.]"</div>
+      <span class="badge">Division 4</span>
+      <div class="name">Mt. Pleasant Sacred Heart</div>
+      <div class="meta">Mount Pleasant · 36-4</div>
+      <div class="stat">36 wins — the most of any team going to East Lansing.</div>
+      <div class="quip">A small school with a giant win total, back on the big stage.</div>
     </div>
     <div class="star">
-      <span class="badge">Boys Golf</span>
-      <div class="name">[Athlete Name]</div>
-      <div class="meta">[School] · [Town]</div>
-      <div class="stat">[e.g. fired a 68 to win the individual state title]</div>
-      <div class="quip">"[One-liner here.]"</div>
+      <span class="badge">Division 1</span>
+      <div class="name">Detroit Catholic Central</div>
+      <div class="meta">Detroit · 27-12</div>
+      <div class="stat">One of two Detroit programs in the Final 16 (with Detroit Edison, D3).</div>
+      <div class="quip">The city is represented downstate. Brad approves.</div>
     </div>
   </div>
 </section>
 
-<!-- ================= BY THE NUMBERS ================= -->
+<!-- ================= THE FINAL 16 ================= -->
+<!-- Verified from MHSAA 2026 finals preview: the 16 teams at McLane Stadium, by division,
+     with records + hometowns. Update with semifinal/final results as they come in. -->
 <section class="wrap sec">
   <div class="sec-head">
     <div style="display:flex;align-items:baseline;gap:16px">
-      <span class="title">By the Numbers</span>
-      <span class="subt">In-season leaderboards</span>
+      <span class="title">The Final 16</span>
+      <span class="subt">Headed to McLane Stadium</span>
     </div>
-    <!-- EDIT: re-label tabs each season. Spring shown by default (Jun). -->
     <div class="filters" id="sportTabs">
-      <button class="pill active" data-b="bb">Baseball</button>
-      <button class="pill" data-b="soc">Girls Soccer</button>
-      <button class="pill" data-b="golf">Boys Golf</button>
+      <button class="pill active" data-b="d1">Division 1</button>
+      <button class="pill" data-b="d2">Division 2</button>
+      <button class="pill" data-b="d3">Division 3</button>
+      <button class="pill" data-b="d4">Division 4</button>
     </div>
   </div>
-  <div class="seasonnote">Showing the sports currently in season. Fall → Football · Boys Soccer · Girls Golf &nbsp;|&nbsp; Winter → Basketball (Boys + Girls) &nbsp;|&nbsp; Spring → Baseball · Girls Soccer · Boys Golf.</div>
+  <div class="seasonnote">Four teams per division, semifinals Thursday (D2, D3) and Friday (D1, D4), finals Saturday at Michigan State. Source: MHSAA.</div>
 
-  <div class="board active" id="bb">
+  <div class="board active" id="d1">
     <table>
-      <thead><tr><th>#</th><th>Athlete</th><th>School</th><th style="text-align:right">Stat</th></tr></thead>
+      <thead><tr><th>Team</th><th>Hometown</th><th style="text-align:right">Record</th></tr></thead>
       <tbody>
-        <tr><td class="rank one">1</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[.512]</td></tr>
-        <tr><td class="rank">2</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[.498]</td></tr>
-        <tr><td class="rank">3</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[.487]</td></tr>
-        <tr><td class="rank">4</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[—]</td></tr>
-        <tr><td class="rank">5</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[—]</td></tr>
+        <tr><td class="athlete">Brownstown Woodhaven</td><td class="school">Brownstown</td><td class="figure">34-5-1</td></tr>
+        <tr><td class="athlete">Mattawan</td><td class="school">Mattawan</td><td class="figure">29-8</td></tr>
+        <tr><td class="athlete">Rochester Adams</td><td class="school">Rochester</td><td class="figure">28-8</td></tr>
+        <tr><td class="athlete">Detroit Catholic Central</td><td class="school">Detroit</td><td class="figure">27-12</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="board" id="soc">
+  <div class="board" id="d2">
     <table>
-      <thead><tr><th>#</th><th>Athlete</th><th>School</th><th style="text-align:right">Goals</th></tr></thead>
+      <thead><tr><th>Team</th><th>Hometown</th><th style="text-align:right">Record</th></tr></thead>
       <tbody>
-        <tr><td class="rank one">1</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[—]</td></tr>
-        <tr><td class="rank">2</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[—]</td></tr>
-        <tr><td class="rank">3</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[—]</td></tr>
+        <tr><td class="athlete">GR Kenowa Hills</td><td class="school">Grand Rapids</td><td class="figure">35-2</td></tr>
+        <tr><td class="athlete">Orchard Lake St. Mary's</td><td class="school">Orchard Lake</td><td class="figure">32-5</td></tr>
+        <tr><td class="athlete">Vicksburg</td><td class="school">Vicksburg</td><td class="figure">30-7</td></tr>
+        <tr><td class="athlete">Dearborn Divine Child</td><td class="school">Dearborn</td><td class="figure">29-6</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="board" id="golf">
+  <div class="board" id="d3">
     <table>
-      <thead><tr><th>#</th><th>Athlete</th><th>School</th><th style="text-align:right">Low Round</th></tr></thead>
+      <thead><tr><th>Team</th><th>Hometown</th><th style="text-align:right">Record</th></tr></thead>
       <tbody>
-        <tr><td class="rank one">1</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[—]</td></tr>
-        <tr><td class="rank">2</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[—]</td></tr>
-        <tr><td class="rank">3</td><td class="athlete">[Name]</td><td class="school">[School]</td><td class="figure">[—]</td></tr>
+        <tr><td class="athlete">TC St. Francis</td><td class="school">Traverse City</td><td class="figure">32-5</td></tr>
+        <tr><td class="athlete">Rochester Hills Lutheran NW</td><td class="school">Rochester Hills</td><td class="figure">28-6</td></tr>
+        <tr><td class="athlete">Kalamazoo Christian</td><td class="school">Kalamazoo</td><td class="figure">25-8</td></tr>
+        <tr><td class="athlete">Detroit Edison</td><td class="school">Detroit</td><td class="figure">23-8</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="board" id="d4">
+    <table>
+      <thead><tr><th>Team</th><th>Hometown</th><th style="text-align:right">Record</th></tr></thead>
+      <tbody>
+        <tr><td class="athlete">Mt. Pleasant Sacred Heart</td><td class="school">Mount Pleasant</td><td class="figure">36-4</td></tr>
+        <tr><td class="athlete">Royal Oak Shrine</td><td class="school">Royal Oak</td><td class="figure">26-8</td></tr>
+        <tr><td class="athlete">Marcellus</td><td class="school">Marcellus</td><td class="figure">21-11</td></tr>
+        <tr><td class="athlete">Painesdale Jeffers</td><td class="school">Painesdale</td><td class="figure">15-8</td></tr>
       </tbody>
     </table>
   </div>
@@ -309,14 +325,14 @@
   <div class="sec-head"><span class="title">Team Stories</span></div>
   <div class="two">
     <div class="scard totw">
-      <h3>Team of the Week</h3>
-      <div class="team">[Team Name]</div>
-      <p>[One or two sentences on the run they're on, in the voice.]</p>
+      <h3>Team To Beat</h3>
+      <div class="team">GR Kenowa Hills</div>
+      <p>35-2 and the best record left standing. The favorite to cut down the nets in Division 2.</p>
     </div>
     <div class="scard upset">
-      <h3>Upset of the Week</h3>
-      <div class="team">[Winner] over [Favorite]</div>
-      <p>[What happened, in the voice.]</p>
+      <h3>Cinderella</h3>
+      <div class="team">Painesdale Jeffers</div>
+      <p>15-8 and the longest road in the field — a U.P. program making the long haul downstate to McLane. Nobody's bigger underdog in Division 4.</p>
     </div>
   </div>
 </section>
@@ -347,12 +363,7 @@
     <a class="wlink" href="#" target="_blank" rel="noopener" id="ytlink">&#9654; Watch on YouTube</a>
   </div>
 
-  <p class="trust">Stats are curated and verified before publishing. Spot an error, or want a removal? <a href="index.html#rundown" style="color:var(--accent)">Email us</a> — we fix it same day.</p>
-
-  <!-- DELETE BEFORE PUBLISHING -->
-  <div class="editnote" id="editnote">
-    ✏️ <strong>Editor note (delete before publishing):</strong> Everything in [brackets] is a placeholder — swap in real, verified names, schools, and stats; never invent a line. Re-label the "By the Numbers" tabs each season: <strong>Fall</strong> → Football · Boys Soccer · Girls Golf &nbsp;·&nbsp; <strong>Winter</strong> → Basketball (Boys + Girls) &nbsp;·&nbsp; <strong>Spring</strong> → Baseball · Girls Soccer · Boys Golf. Set the two links (Submit / latest video) in the variables at the bottom of this file, and add the Apple Podcasts URL in the utility strip once available.
-  </div>
+  <p class="trust">Records and matchups are sourced from the MHSAA and verified before publishing. Spot an error, or want a removal? <a href="index.html#rundown" style="color:var(--accent)">Email us</a> — we fix it same day.</p>
 </section>
 
 <!-- ================= FOOTER ================= -->
