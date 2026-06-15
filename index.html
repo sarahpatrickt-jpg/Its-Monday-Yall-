@@ -256,17 +256,16 @@
 </header>
 
 <!-- ================= LIVE TICKER ================= -->
-<!-- EDIT: swap in the real games you're breaking down each week -->
+<!-- Auto-fed from the free ESPN MLB scoreboard (no key). JS below replaces the
+     fallback set on load and refreshes every 60s. To switch leagues when the
+     season changes, edit TICKER_SPORT in the script at the bottom of this file. -->
 <div class="ticker">
   <div class="ticker-tab"><span class="dot"></span>SCORES</div>
   <div class="ticker-vp">
     <div class="ticker-track" id="tickTrack">
-      <span><b class="lg">NFL</b>&nbsp; DAL 24 &nbsp;<b class="w">PHI 27</b>&nbsp; <span class="lg">F</span></span>
-      <span><b class="lg">NFL</b>&nbsp; <b class="w">KC 31</b>&nbsp; BUF 20 &nbsp;<span class="lg">F</span></span>
-      <span><b class="lg">NBA</b>&nbsp; <b class="w">BOS 118</b>&nbsp; MIA 104 &nbsp;<span class="lg">F</span></span>
-      <span><b class="lg">NBA</b>&nbsp; LAL 109 &nbsp;<b class="w">DEN 121</b>&nbsp; <span class="lg">F</span></span>
-      <span><b class="lg">NFL</b>&nbsp; <b class="live">SF 13 · SEA 10</b>&nbsp; <span class="live">Q4 2:08</span></span>
-      <span><b class="lg">NHL</b>&nbsp; <b class="w">NYR 4</b>&nbsp; TOR 2 &nbsp;<span class="lg">F</span></span>
+      <!-- fallback shown only if the live fetch fails -->
+      <span><b class="lg">MLB</b>&nbsp; Live scores loading… &nbsp;<span class="lg">·</span></span>
+      <span><b class="lg">MLB</b>&nbsp; New episode every Monday &nbsp;<span class="lg">·</span></span>
     </div>
   </div>
 </div>
@@ -322,54 +321,57 @@
       <span class="subt">What we're breaking down</span>
     </div>
     <div class="filters" id="boardFilters">
-      <button class="pill active" data-lg="all">NFL</button>
-      <button class="pill" data-lg="nba">NBA</button>
-      <button class="pill" data-lg="mlb">MLB</button>
-      <button class="pill" data-lg="nhl">NHL</button>
+      <button class="pill active" data-lg="all">MLB</button>
+      <button class="pill" data-lg="al">AL</button>
+      <button class="pill" data-lg="nl">NL</button>
     </div>
   </div>
 
+  <!-- EDIT: curated weekly. Real recent finals seeded here; swap in the games you're
+       breaking down and drop Brad & Fred's take into each .hook line. -->
   <div class="board">
     <div class="game">
-      <div class="gm"><span>NFL · Wk 14</span><span class="final">Final</span></div>
-      <div class="team"><span class="who"><span class="abbr">DAL</span><span class="nm">Cowboys</span></span><span class="scr">24</span></div>
-      <div class="team win"><span class="who"><span class="abbr">PHI</span><span class="nm">Eagles</span></span><span class="scr">27</span></div>
-      <div class="hook">"Dallas blew it again." — Fred</div>
+      <div class="gm"><span>MLB · AL East</span><span class="final">Final</span></div>
+      <div class="team win"><span class="who"><span class="abbr">NYY</span><span class="nm">Yankees</span></span><span class="scr">8</span></div>
+      <div class="team"><span class="who"><span class="abbr">TOR</span><span class="nm">Blue Jays</span></span><span class="scr">3</span></div>
+      <div class="hook">[Brad &amp; Fred's take →]</div>
     </div>
     <div class="game">
-      <div class="gm"><span>NFL · Wk 14</span><span class="final">Final</span></div>
-      <div class="team win"><span class="who"><span class="abbr">KC</span><span class="nm">Chiefs</span></span><span class="scr">31</span></div>
-      <div class="team"><span class="who"><span class="abbr">BUF</span><span class="nm">Bills</span></span><span class="scr">20</span></div>
-      <div class="hook">Brad: "Still the AFC favorites."</div>
+      <div class="gm"><span>MLB · NL East</span><span class="final">Final</span></div>
+      <div class="team win"><span class="who"><span class="abbr">NYM</span><span class="nm">Mets</span></span><span class="scr">8</span></div>
+      <div class="team"><span class="who"><span class="abbr">ATL</span><span class="nm">Braves</span></span><span class="scr">1</span></div>
+      <div class="hook">[Brad &amp; Fred's take →]</div>
     </div>
     <div class="game">
-      <div class="gm"><span>NFL · SNF</span><span class="live"><span class="dot"></span>Live Q4</span></div>
-      <div class="team win"><span class="who"><span class="abbr">SF</span><span class="nm">49ers</span></span><span class="scr">13</span></div>
-      <div class="team win"><span class="who"><span class="abbr">SEA</span><span class="nm">Seahawks</span></span><span class="scr">10</span></div>
-      <div class="hook live">2:08 left — possession SF</div>
+      <div class="gm"><span>MLB · Interleague</span><span class="final">Final</span></div>
+      <div class="team win"><span class="who"><span class="abbr">SD</span><span class="nm">Padres</span></span><span class="scr">5</span></div>
+      <div class="team"><span class="who"><span class="abbr">BAL</span><span class="nm">Orioles</span></span><span class="scr">2</span></div>
+      <div class="hook">[Brad &amp; Fred's take →]</div>
     </div>
     <div class="game">
-      <div class="gm"><span>NBA</span><span class="final">Final</span></div>
-      <div class="team win"><span class="who"><span class="abbr">DEN</span><span class="nm">Nuggets</span></span><span class="scr">121</span></div>
-      <div class="team"><span class="who"><span class="abbr">LAL</span><span class="nm">Lakers</span></span><span class="scr">109</span></div>
+      <div class="gm"><span>MLB · NL</span><span class="final">Final</span></div>
+      <div class="team win"><span class="who"><span class="abbr">ARI</span><span class="nm">D-backs</span></span><span class="scr">5</span></div>
+      <div class="team"><span class="who"><span class="abbr">CIN</span><span class="nm">Reds</span></span><span class="scr">3</span></div>
       <div class="hook">Topic of the week →</div>
     </div>
   </div>
 
   <!-- HIGH SCHOOL strip — Michigan -->
-  <!-- EDIT: update weekly. "Full rankings" points to the dedicated Monday Marquee page. -->
+  <!-- EDIT: PLACEHOLDER baseball ranking — no live HS feed exists, so this is
+       curated by hand. Swap in real, verified schools + records before relying on it,
+       then update weekly. "Full rankings" points to the Monday Marquee page. -->
   <div class="hs" id="hs">
     <div class="hs-label">
-      <span class="eb">Friday Nights</span>
-      <span class="ti">MI HS Top 5</span>
-      <span class="su">Division 1 · Wk 9</span>
+      <span class="eb">Diamond Report</span>
+      <span class="ti">MI HS Baseball</span>
+      <span class="su">Division 1 · State Finals</span>
     </div>
     <div class="hs-pills">
-      <div class="hs-pill one"><span class="rk">1</span><span class="sn">Belleville</span><span class="rec">8-0</span></div>
-      <div class="hs-pill"><span class="rk">2</span><span class="sn">Caledonia</span><span class="rec">7-1</span></div>
-      <div class="hs-pill"><span class="rk">3</span><span class="sn">Rockford</span><span class="rec">7-1</span></div>
-      <div class="hs-pill"><span class="rk">4</span><span class="sn">Dexter</span><span class="rec">6-2</span></div>
-      <div class="hs-pill"><span class="rk">5</span><span class="sn">Clarkston</span><span class="rec">6-2</span></div>
+      <div class="hs-pill one"><span class="rk">1</span><span class="sn">[School]</span><span class="rec">TBD</span></div>
+      <div class="hs-pill"><span class="rk">2</span><span class="sn">[School]</span><span class="rec">TBD</span></div>
+      <div class="hs-pill"><span class="rk">3</span><span class="sn">[School]</span><span class="rec">TBD</span></div>
+      <div class="hs-pill"><span class="rk">4</span><span class="sn">[School]</span><span class="rec">TBD</span></div>
+      <div class="hs-pill"><span class="rk">5</span><span class="sn">[School]</span><span class="rec">TBD</span></div>
     </div>
     <a class="hs-more" href="high-school.html">Full rankings →</a>
   </div>
@@ -483,6 +485,50 @@
     var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     var mon=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     document.getElementById('utilDate').textContent=(days[d.getDay()]+' · '+mon[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()).toUpperCase();
+  })();
+
+  // ===== LIVE SCORES TICKER (free ESPN feed, no key) =====
+  // Change TICKER_SPORT when the season flips:
+  //   MLB → 'baseball/mlb' · NFL → 'football/nfl' · NBA → 'basketball/nba' · NHL → 'hockey/nhl'
+  var TICKER_SPORT = 'baseball/mlb';
+  var TICKER_LABEL = 'MLB';
+  (function(){
+    var track=document.getElementById('tickTrack');
+    if(!track||!window.fetch) return;
+    var API='https://site.api.espn.com/apis/site/v2/sports/'+TICKER_SPORT+'/scoreboard';
+    function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+    function item(inner){return '<span><b class="lg">'+TICKER_LABEL+'</b>&nbsp; '+inner+'</span>';}
+    function build(events){
+      var out=[];
+      (events||[]).forEach(function(e){
+        try{
+          var comp=e.competitions[0], st=e.status.type, cs=comp.competitors;
+          var away=cs[0].homeAway==='away'?cs[0]:cs[1];
+          var home=cs[0].homeAway==='away'?cs[1]:cs[0];
+          var aA=esc(away.team.abbreviation), hA=esc(home.team.abbreviation);
+          if(st.state==='pre'){
+            var t=esc(st.shortDetail||'').split(' - ').pop();
+            out.push(item(aA+' @ '+hA+' &nbsp;<span class="lg">'+t+'</span>'));
+          }else if(st.state==='in'){
+            out.push(item('<b class="live">'+aA+' '+esc(away.score)+' · '+hA+' '+esc(home.score)+'</b>&nbsp; <span class="live">'+esc(st.shortDetail)+'</span>'));
+          }else{
+            var a=away.winner?'<b class="w">'+aA+' '+esc(away.score)+'</b>':aA+' '+esc(away.score);
+            var h=home.winner?'<b class="w">'+hA+' '+esc(home.score)+'</b>':hA+' '+esc(home.score);
+            out.push(item(a+' &nbsp; '+h+' &nbsp;<span class="lg">F</span>'));
+          }
+        }catch(err){}
+      });
+      return out;
+    }
+    function load(){
+      fetch(API).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        if(!d) return;
+        var items=build(d.events);
+        if(items.length){ track.innerHTML=items.join('')+items.join(''); } // duplicate for seamless loop
+      }).catch(function(){/* keep the static fallback */});
+    }
+    load();
+    setInterval(load,60000);
   })();
 
   // The Board league filter
