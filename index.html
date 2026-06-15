@@ -103,6 +103,29 @@
   .sub-card button{background:var(--bg);color:#fff;border:0;border-radius:6px;padding:12px;cursor:pointer;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:1.5px;text-transform:uppercase}
   .form-ok{font-family:var(--cond);letter-spacing:1px;text-transform:uppercase;font-size:14px;color:#fff;margin-top:8px;display:none}
 
+  /* world cup center */
+  .wc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+  .wc-loading{grid-column:1/-1;font-family:var(--cond);letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:24px 0;text-align:center}
+  .wc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:16px;transition:border-color .15s}
+  .wc-card:hover{border-color:#3A3F49}
+  .wc-top{display:flex;justify-content:space-between;align-items:center;font-family:var(--cond);font-size:12px;letter-spacing:1px;text-transform:uppercase}
+  .wc-status{color:var(--muted)}
+  .wc-status.live{color:var(--accent);display:flex;align-items:center;gap:6px}
+  .wc-status.live .dot{width:7px;height:7px;background:var(--accent)}
+  .wc-venue{color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:48%;text-align:right}
+  .wc-match{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .wc-team{display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;min-width:0}
+  .wc-team img{width:44px;height:44px;object-fit:contain}
+  .wc-team .ab{font-family:var(--cond);font-weight:700;font-size:17px;letter-spacing:.5px;color:var(--ink)}
+  .wc-team .full{font-family:var(--body);font-size:11px;color:var(--dim);text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .wc-team.dim .ab{color:var(--muted)}
+  .wc-team.win .ab{color:#fff}
+  .wc-score{font-family:var(--anton);font-size:28px;letter-spacing:1px;white-space:nowrap;color:var(--ink);text-align:center}
+  .wc-score .vs{font-size:14px;color:var(--dim);font-family:var(--cond);font-weight:700}
+  .wc-score.vsonly{font-size:15px}
+  @media(max-width:980px){.wc-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.wc-grid{grid-template-columns:1fr}}
+
   /* section header */
   .sec{padding-top:36px}
   .sec-head{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid var(--border);padding-bottom:12px;flex-wrap:wrap;gap:10px}
@@ -311,6 +334,21 @@
     </div>
   </div>
 </div>
+
+<!-- ================= WORLD CUP CENTER ================= -->
+<!-- Live from the free ESPN World Cup feed. Auto-hides if there are no matches that day. -->
+<section class="wrap sec" id="wcSection">
+  <div class="sec-head">
+    <div style="display:flex;align-items:baseline;gap:16px">
+      <span class="title">World Cup <span class="accent">2026</span></span>
+      <span class="subt">Live across North America</span>
+    </div>
+    <a class="link-more" href="https://www.espn.com/soccer/scoreboard/_/league/fifa.world" target="_blank" rel="noopener">Full schedule →</a>
+  </div>
+  <div class="wc-grid" id="wcGrid">
+    <div class="wc-loading">Loading today's matches…</div>
+  </div>
+</section>
 
 <!-- ================= THE BOARD ================= -->
 <!-- EDIT: replace with the games you actually cover each week -->
@@ -534,6 +572,52 @@
         var items=[].concat.apply([],groups); // World Cup group first, then MLB
         if(items.length){ track.innerHTML=items.join('')+items.join(''); } // duplicate for seamless loop
       });
+    }
+    load();
+    setInterval(load,60000);
+  })();
+
+  // ===== WORLD CUP CENTER (free ESPN feed, no key) =====
+  (function(){
+    var sec=document.getElementById('wcSection'), grid=document.getElementById('wcGrid');
+    if(!sec||!grid||!window.fetch) { if(sec) sec.style.display='none'; return; }
+    var API='https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard';
+    function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function team(t,decided){
+      var tm=t.team||{}, logo=tm.logo||((tm.logos||[{}])[0]||{}).href||'';
+      var cls='wc-team'+(decided&&!t.winner?' dim':'')+(decided&&t.winner?' win':'');
+      var img=logo?'<img src="'+esc(logo)+'" alt="'+esc(tm.displayName||'')+'" onerror="this.style.visibility=\'hidden\'"/>':'';
+      return '<div class="'+cls+'">'+img+'<span class="ab">'+esc(tm.abbreviation||'')+'</span><span class="full">'+esc(tm.shortDisplayName||tm.displayName||'')+'</span></div>';
+    }
+    function card(e){
+      try{
+        var c=e.competitions[0], st=e.status.type, cs=c.competitors;
+        var t1=cs[0].homeAway==='home'?cs[1]:cs[0];
+        var t2=cs[0].homeAway==='home'?cs[0]:cs[1];
+        var city=(((c.venue||{}).address||{}).city||'').split(',')[0];
+        var statusHtml, center, decided=false;
+        if(st.state==='in'){
+          statusHtml='<span class="wc-status live"><span class="dot"></span>'+esc(st.shortDetail||'Live')+'</span>';
+          center='<span class="wc-score">'+esc(t1.score)+' <span class="vs">-</span> '+esc(t2.score)+'</span>';
+        }else if(st.state==='post'){
+          decided=true;
+          statusHtml='<span class="wc-status">Full Time</span>';
+          center='<span class="wc-score">'+esc(t1.score)+' <span class="vs">-</span> '+esc(t2.score)+'</span>';
+        }else{
+          var dt=new Date(e.date), tlabel='Upcoming';
+          if(!isNaN(dt.getTime())){ try{ tlabel=dt.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}); }catch(x){} }
+          statusHtml='<span class="wc-status">'+esc(tlabel)+'</span>';
+          center='<span class="wc-score vsonly"><span class="vs">vs</span></span>';
+        }
+        return '<div class="wc-card"><div class="wc-top">'+statusHtml+'<span class="wc-venue">'+esc(city)+'</span></div>'+
+          '<div class="wc-match">'+team(t1,decided)+center+team(t2,decided)+'</div></div>';
+      }catch(err){return '';}
+    }
+    function load(){
+      fetch(API).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        var html=((d&&d.events)||[]).map(card).join('');
+        if(html){ grid.innerHTML=html; sec.style.display=''; } else { sec.style.display='none'; }
+      }).catch(function(){ if(!grid.querySelector('.wc-card')) sec.style.display='none'; });
     }
     load();
     setInterval(load,60000);
