@@ -264,7 +264,7 @@
   <div class="ticker-vp">
     <div class="ticker-track" id="tickTrack">
       <!-- fallback shown only if the live fetch fails -->
-      <span><b class="lg">MLB</b>&nbsp; Live scores loading… &nbsp;<span class="lg">·</span></span>
+      <span><b class="lg">WC</b>&nbsp; World Cup &amp; MLB scores loading… &nbsp;<span class="lg">·</span></span>
       <span><b class="lg">MLB</b>&nbsp; New episode every Monday &nbsp;<span class="lg">·</span></span>
     </div>
   </div>
@@ -487,45 +487,53 @@
     document.getElementById('utilDate').textContent=(days[d.getDay()]+' · '+mon[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()).toUpperCase();
   })();
 
-  // ===== LIVE SCORES TICKER (free ESPN feed, no key) =====
-  // Change TICKER_SPORT when the season flips:
-  //   MLB → 'baseball/mlb' · NFL → 'football/nfl' · NBA → 'basketball/nba' · NHL → 'hockey/nhl'
-  var TICKER_SPORT = 'baseball/mlb';
-  var TICKER_LABEL = 'MLB';
+  // ===== LIVE SCORES TICKER (free ESPN feeds, no key) =====
+  // Multi-league: edit TICKER_SOURCES to add/remove leagues as seasons change.
+  //   World Cup → 'soccer/fifa.world' · MLB → 'baseball/mlb' · NFL → 'football/nfl'
+  //   NBA → 'basketball/nba' · NHL → 'hockey/nhl' · sep '@' for US sports, 'v' for soccer
+  var TICKER_SOURCES = [
+    { sport:'soccer/fifa.world', label:'WC',  sep:'v' },
+    { sport:'baseball/mlb',      label:'MLB', sep:'@' }
+  ];
   (function(){
     var track=document.getElementById('tickTrack');
-    if(!track||!window.fetch) return;
-    var API='https://site.api.espn.com/apis/site/v2/sports/'+TICKER_SPORT+'/scoreboard';
+    if(!track||!window.fetch||!window.Promise) return;
     function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
-    function item(inner){return '<span><b class="lg">'+TICKER_LABEL+'</b>&nbsp; '+inner+'</span>';}
-    function build(events){
+    function build(src,events){
       var out=[];
+      function item(inner){return '<span><b class="lg">'+src.label+'</b>&nbsp; '+inner+'</span>';}
       (events||[]).forEach(function(e){
         try{
           var comp=e.competitions[0], st=e.status.type, cs=comp.competitors;
-          var away=cs[0].homeAway==='away'?cs[0]:cs[1];
-          var home=cs[0].homeAway==='away'?cs[1]:cs[0];
-          var aA=esc(away.team.abbreviation), hA=esc(home.team.abbreviation);
+          // away first when marked, else natural order
+          var t1=cs[0].homeAway==='home'?cs[1]:cs[0];
+          var t2=cs[0].homeAway==='home'?cs[0]:cs[1];
+          var a1=esc(t1.team.abbreviation||t1.team.shortDisplayName), a2=esc(t2.team.abbreviation||t2.team.shortDisplayName);
           if(st.state==='pre'){
             var t=esc(st.shortDetail||'').split(' - ').pop();
-            out.push(item(aA+' @ '+hA+' &nbsp;<span class="lg">'+t+'</span>'));
+            out.push(item(a1+' '+src.sep+' '+a2+' &nbsp;<span class="lg">'+t+'</span>'));
           }else if(st.state==='in'){
-            out.push(item('<b class="live">'+aA+' '+esc(away.score)+' · '+hA+' '+esc(home.score)+'</b>&nbsp; <span class="live">'+esc(st.shortDetail)+'</span>'));
+            out.push(item('<b class="live">'+a1+' '+esc(t1.score)+' · '+a2+' '+esc(t2.score)+'</b>&nbsp; <span class="live">'+esc(st.shortDetail)+'</span>'));
           }else{
-            var a=away.winner?'<b class="w">'+aA+' '+esc(away.score)+'</b>':aA+' '+esc(away.score);
-            var h=home.winner?'<b class="w">'+hA+' '+esc(home.score)+'</b>':hA+' '+esc(home.score);
-            out.push(item(a+' &nbsp; '+h+' &nbsp;<span class="lg">F</span>'));
+            var s1=t1.winner?'<b class="w">'+a1+' '+esc(t1.score)+'</b>':a1+' '+esc(t1.score);
+            var s2=t2.winner?'<b class="w">'+a2+' '+esc(t2.score)+'</b>':a2+' '+esc(t2.score);
+            var end=(src.sport.indexOf('soccer')===0)?'FT':'F';
+            out.push(item(s1+' &nbsp; '+s2+' &nbsp;<span class="lg">'+end+'</span>'));
           }
         }catch(err){}
       });
       return out;
     }
     function load(){
-      fetch(API).then(function(r){return r.ok?r.json():null;}).then(function(d){
-        if(!d) return;
-        var items=build(d.events);
+      Promise.all(TICKER_SOURCES.map(function(src){
+        return fetch('https://site.api.espn.com/apis/site/v2/sports/'+src.sport+'/scoreboard')
+          .then(function(r){return r.ok?r.json():null;})
+          .then(function(d){return d?build(src,d.events):[];})
+          .catch(function(){return [];});
+      })).then(function(groups){
+        var items=[].concat.apply([],groups); // World Cup group first, then MLB
         if(items.length){ track.innerHTML=items.join('')+items.join(''); } // duplicate for seamless loop
-      }).catch(function(){/* keep the static fallback */});
+      });
     }
     load();
     setInterval(load,60000);
