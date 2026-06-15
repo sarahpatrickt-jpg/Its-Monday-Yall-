@@ -295,9 +295,11 @@
   <div class="ticker-tab"><span class="dot"></span>SCORES</div>
   <div class="ticker-vp">
     <div class="ticker-track" id="tickTrack">
-      <!-- fallback shown only if the live fetch fails -->
-      <span><b class="lg">WC</b>&nbsp; World Cup &amp; MLB scores loading… &nbsp;<span class="lg">·</span></span>
-      <span><b class="lg">MLB</b>&nbsp; New episode every Monday &nbsp;<span class="lg">·</span></span>
+      <!-- fallback: shows until live scores load, and stays if a feed is unreachable -->
+      <span><b class="lg">WC</b>&nbsp; 2026 World Cup — live all summer &nbsp;<span class="lg">·</span></span>
+      <span><b class="lg">MLB</b>&nbsp; Baseball every night &nbsp;<span class="lg">·</span></span>
+      <span><b class="lg">IMY</b>&nbsp; New episode every Monday &nbsp;<span class="lg">·</span></span>
+      <span><b class="lg">WC</b>&nbsp; World Cup fever — catch the show &nbsp;<span class="lg">·</span></span>
     </div>
   </div>
 </div>
@@ -573,6 +575,7 @@
         if(items.length){ track.innerHTML=items.join('')+items.join(''); } // duplicate for seamless loop
       });
     }
+    track.innerHTML=track.innerHTML+track.innerHTML; // duplicate fallback so it scrolls smoothly until live data lands
     load();
     setInterval(load,60000);
   })();
@@ -695,13 +698,24 @@
     });
   });
 
-  // Newsletter forms — client-side confirmation (connect a provider to actually capture)
+  // Newsletter forms — notify Brad on every signup via Formsubmit (no backend needed).
+  // First submission sends Brad a one-time activation email he must confirm.
+  var NOTIFY_ENDPOINT = 'https://formsubmit.co/ajax/brad@youragentbrad.net';
   document.querySelectorAll('form.news').forEach(function(f){
     f.addEventListener('submit',function(e){
       e.preventDefault();
+      var input=f.querySelector('input');
+      var email=(input.value||'').trim();
+      if(!email) return;
+      var body=new FormData();
+      body.append('email',email);
+      body.append('_subject',"New It's Monday Y'All subscriber");
+      body.append('_template','table');
+      body.append('_captcha','false');
+      fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:body}).catch(function(){});
       var ok=document.getElementById(f.getAttribute('data-ok'));
       if(ok){ok.style.display='block';}
-      f.querySelector('input').value='';
+      input.value='';
     });
   });
 </script>
