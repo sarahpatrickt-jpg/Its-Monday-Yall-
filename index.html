@@ -368,7 +368,7 @@
   <div class="sec-head">
     <div style="display:flex;align-items:baseline;gap:16px">
       <span class="title">The Board</span>
-      <span class="subt">Today around the league</span>
+      <span class="subt">Yesterday &amp; today around the league</span>
     </div>
     <div class="filters" id="boardFilters">
       <button class="pill active" data-f="all">All</button>
@@ -678,7 +678,7 @@
   // ===== THE BOARD — live MLB slate (free ESPN feed, no key) =====
   (function(){
     var grid=document.getElementById('boardGrid');
-    if(!grid||!window.fetch) return;
+    if(!grid||!window.fetch||!window.Promise) return;
     var API='https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard';
     var curFilter='all';
     function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
@@ -687,7 +687,7 @@
       var sc=decided||t.state==='in'?esc(t.score):'';
       return '<div class="team'+(win?' win':'')+'"><span class="who"><span class="abbr">'+esc((t.team||{}).abbreviation||'')+'</span><span class="nm">'+esc((t.team||{}).shortDisplayName||(t.team||{}).name||'')+'</span></span><span class="scr">'+sc+'</span></div>';
     }
-    function card(e){
+    function card(e,dayLabel){
       try{
         var c=e.competitions[0], st=e.status.type, cs=c.competitors;
         var away=cs[0].homeAway==='away'?cs[0]:cs[1];
@@ -698,7 +698,7 @@
         else { var d=new Date(e.date), t='Scheduled'; if(!isNaN(d.getTime())){ try{t=d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});}catch(x){} } status='<span class="final">'+esc(t)+'</span>'; }
         away.state=state; home.state=state;
         var decided=(state==='post');
-        return '<div class="game" data-state="'+state+'"><div class="gm"><span>MLB</span>'+status+'</div>'+row(away,decided)+row(home,decided)+'</div>';
+        return '<div class="game" data-state="'+state+'"><div class="gm"><span>'+esc(dayLabel||'MLB')+'</span>'+status+'</div>'+row(away,decided)+row(home,decided)+'</div>';
       }catch(err){return '';}
     }
     function applyFilter(){
@@ -711,11 +711,16 @@
       if(shown===0){ if(!msg){msg=document.createElement('div');msg.className='board-msg';grid.appendChild(msg);} msg.textContent=curFilter==='in'?'No games in progress right now.':'No games to show.'; msg.style.display=''; }
       else if(msg){ msg.style.display='none'; }
     }
+    function ymd(dt){var m=dt.getMonth()+1,d=dt.getDate();return ''+dt.getFullYear()+(m<10?'0':'')+m+(d<10?'0':'')+d;}
     function load(){
-      fetch(API).then(function(r){return r.ok?r.json():null;}).then(function(d){
-        var ev=(d&&d.events)||[];
-        var html=ev.map(card).join('');
-        grid.innerHTML=html||'<div class="board-msg">No games scheduled today.</div>';
+      var today=new Date(), yest=new Date(); yest.setDate(today.getDate()-1);
+      Promise.all([
+        fetch(API+'?dates='+ymd(yest)).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+        fetch(API+'?dates='+ymd(today)).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+      ]).then(function(res){
+        var yEv=(res[0]&&res[0].events)||[], tEv=(res[1]&&res[1].events)||[];
+        var html=yEv.map(function(e){return card(e,'Yesterday');}).join('')+tEv.map(function(e){return card(e,'Today');}).join('');
+        grid.innerHTML=html||'<div class="board-msg">No games to show.</div>';
         applyFilter();
       }).catch(function(){ if(!grid.querySelector('.game')) grid.innerHTML='<div class="board-msg">Scores are taking a breather. Check back soon.</div>'; });
     }
