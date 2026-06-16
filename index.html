@@ -878,26 +878,43 @@
     setInterval(load,60000);
   })();
 
-  // Newsletter forms — notify Brad on every signup via Formsubmit (no backend needed).
-  // First submission sends Brad a one-time activation email he must confirm.
-  var NOTIFY_ENDPOINT = 'https://formsubmit.co/ajax/brad@youragentbrad.net';
-  document.querySelectorAll('form.news').forEach(function(f){
-    f.addEventListener('submit',function(e){
-      e.preventDefault();
-      var input=f.querySelector('input');
-      var email=(input.value||'').trim();
-      if(!email) return;
-      var body=new FormData();
-      body.append('email',email);
-      body.append('_subject',"New It's Monday Y'All subscriber");
-      body.append('_template','table');
-      body.append('_captcha','false');
-      fetch(NOTIFY_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:body}).catch(function(){});
-      var ok=document.getElementById(f.getAttribute('data-ok'));
-      if(ok){ok.style.display='block';}
-      input.value='';
+  // Newsletter forms — submit straight into the Beehiiv list via a hidden-iframe
+  // form post (no embed/key needed), and ping Brad via Formsubmit as a backup.
+  (function(){
+    var BEEHIIV='https://its-monday-yall.beehiiv.com/create';
+    var NOTIFY='https://formsubmit.co/ajax/brad@youragentbrad.net';
+    // hidden iframe + form that posts to Beehiiv without navigating the page
+    var sink=document.createElement('iframe'); sink.name='bhSink'; sink.style.display='none'; sink.setAttribute('aria-hidden','true');
+    var bf=document.createElement('form'); bf.action=BEEHIIV; bf.method='post'; bf.target='bhSink'; bf.style.display='none';
+    function field(n,v){var i=document.createElement('input'); i.type='hidden'; i.name=n; i.value=v; bf.appendChild(i); return i;}
+    var emailField=field('email','');
+    field('sent_from_orchid','true'); field('signup_flow_id',''); field('automation_ids','');
+    field('double_opt','false'); field('auto_login_enabled','true');
+    function attach(){ document.body.appendChild(sink); document.body.appendChild(bf); }
+    if(document.body){attach();} else {document.addEventListener('DOMContentLoaded',attach);}
+
+    document.querySelectorAll('form.news').forEach(function(f){
+      f.addEventListener('submit',function(e){
+        e.preventDefault();
+        var input=f.querySelector('input');
+        var email=(input.value||'').trim();
+        if(!email) return;
+        // 1) add to Beehiiv list
+        emailField.value=email;
+        try{ bf.submit(); }catch(err){}
+        // 2) backup heads-up to Brad
+        var body=new FormData();
+        body.append('email',email);
+        body.append('_subject',"New It's Monday Y'All subscriber");
+        body.append('_template','table');
+        body.append('_captcha','false');
+        fetch(NOTIFY,{method:'POST',headers:{'Accept':'application/json'},body:body}).catch(function(){});
+        var ok=document.getElementById(f.getAttribute('data-ok'));
+        if(ok){ok.style.display='block';}
+        input.value='';
+      });
     });
-  });
+  })();
 </script>
 </body>
 </html>
