@@ -149,6 +149,7 @@
 
   /* board */
   .board{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+  .board-msg{grid-column:1/-1;font-family:var(--cond);font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:24px 0;text-align:center}
   .game{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:15px;transition:border-color .15s}
   .game:hover{border-color:#3A3F49}
   .game .gm{display:flex;justify-content:space-between;font-family:var(--cond);font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--dim)}
@@ -362,38 +363,22 @@
 </section>
 
 <!-- ================= THE BOARD ================= -->
-<!-- EDIT: replace with the games you actually cover each week -->
+<!-- Live MLB slate, auto-fed from the free ESPN scoreboard (no key). Refreshes 60s. -->
 <section class="wrap sec" id="board">
   <div class="sec-head">
     <div style="display:flex;align-items:baseline;gap:16px">
       <span class="title">The Board</span>
-      <span class="subt">What we're breaking down</span>
+      <span class="subt">Today around the league</span>
     </div>
     <div class="filters" id="boardFilters">
-      <button class="pill active" data-lg="all">MLB</button>
-      <button class="pill" data-lg="al">AL</button>
-      <button class="pill" data-lg="nl">NL</button>
+      <button class="pill active" data-f="all">All</button>
+      <button class="pill" data-f="in">Live</button>
+      <button class="pill" data-f="post">Final</button>
     </div>
   </div>
 
-  <!-- EDIT: curated weekly. Real recent finals seeded here; swap in the games you're breaking down. -->
-  <div class="board">
-    <div class="game">
-      <div class="gm"><span>MLB · AL East</span><span class="final">Final</span></div>
-      <div class="team win"><span class="who"><span class="abbr">NYY</span><span class="nm">Yankees</span></span><span class="scr">8</span></div>
-      <div class="team"><span class="who"><span class="abbr">TOR</span><span class="nm">Blue Jays</span></span><span class="scr">3</span></div>    </div>
-    <div class="game">
-      <div class="gm"><span>MLB · NL East</span><span class="final">Final</span></div>
-      <div class="team win"><span class="who"><span class="abbr">NYM</span><span class="nm">Mets</span></span><span class="scr">8</span></div>
-      <div class="team"><span class="who"><span class="abbr">ATL</span><span class="nm">Braves</span></span><span class="scr">1</span></div>    </div>
-    <div class="game">
-      <div class="gm"><span>MLB · Interleague</span><span class="final">Final</span></div>
-      <div class="team win"><span class="who"><span class="abbr">SD</span><span class="nm">Padres</span></span><span class="scr">5</span></div>
-      <div class="team"><span class="who"><span class="abbr">BAL</span><span class="nm">Orioles</span></span><span class="scr">2</span></div>    </div>
-    <div class="game">
-      <div class="gm"><span>MLB · NL</span><span class="final">Final</span></div>
-      <div class="team win"><span class="who"><span class="abbr">ARI</span><span class="nm">D-backs</span></span><span class="scr">5</span></div>
-      <div class="team"><span class="who"><span class="abbr">CIN</span><span class="nm">Reds</span></span><span class="scr">3</span></div>    </div>
+  <div class="board" id="boardGrid">
+    <div class="board-msg">Loading today's games…</div>
   </div>
 
   <!-- HIGH SCHOOL strip — Michigan -->
@@ -690,13 +675,59 @@
     setTimeout(startOdds,1200);
   })();
 
-  // The Board league filter
-  document.querySelectorAll('#boardFilters .pill').forEach(function(p){
-    p.addEventListener('click',function(){
-      document.querySelectorAll('#boardFilters .pill').forEach(x=>x.classList.remove('active'));
-      p.classList.add('active');
+  // ===== THE BOARD — live MLB slate (free ESPN feed, no key) =====
+  (function(){
+    var grid=document.getElementById('boardGrid');
+    if(!grid||!window.fetch) return;
+    var API='https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard';
+    var curFilter='all';
+    function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+    function row(t,decided){
+      var win=decided&&t.winner;
+      var sc=decided||t.state==='in'?esc(t.score):'';
+      return '<div class="team'+(win?' win':'')+'"><span class="who"><span class="abbr">'+esc((t.team||{}).abbreviation||'')+'</span><span class="nm">'+esc((t.team||{}).shortDisplayName||(t.team||{}).name||'')+'</span></span><span class="scr">'+sc+'</span></div>';
+    }
+    function card(e){
+      try{
+        var c=e.competitions[0], st=e.status.type, cs=c.competitors;
+        var away=cs[0].homeAway==='away'?cs[0]:cs[1];
+        var home=cs[0].homeAway==='away'?cs[1]:cs[0];
+        var state=st.state, status;
+        if(state==='in'){ status='<span class="live"><span class="dot"></span>'+esc(st.shortDetail||'Live')+'</span>'; }
+        else if(state==='post'){ status='<span class="final">Final</span>'; }
+        else { var d=new Date(e.date), t='Scheduled'; if(!isNaN(d.getTime())){ try{t=d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});}catch(x){} } status='<span class="final">'+esc(t)+'</span>'; }
+        away.state=state; home.state=state;
+        var decided=(state==='post');
+        return '<div class="game" data-state="'+state+'"><div class="gm"><span>MLB</span>'+status+'</div>'+row(away,decided)+row(home,decided)+'</div>';
+      }catch(err){return '';}
+    }
+    function applyFilter(){
+      var games=grid.querySelectorAll('.game'); var shown=0;
+      games.forEach(function(g){
+        var ok=curFilter==='all'||g.getAttribute('data-state')===curFilter;
+        g.style.display=ok?'':'none'; if(ok)shown++;
+      });
+      var msg=grid.querySelector('.board-msg');
+      if(shown===0){ if(!msg){msg=document.createElement('div');msg.className='board-msg';grid.appendChild(msg);} msg.textContent=curFilter==='in'?'No games in progress right now.':'No games to show.'; msg.style.display=''; }
+      else if(msg){ msg.style.display='none'; }
+    }
+    function load(){
+      fetch(API).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        var ev=(d&&d.events)||[];
+        var html=ev.map(card).join('');
+        grid.innerHTML=html||'<div class="board-msg">No games scheduled today.</div>';
+        applyFilter();
+      }).catch(function(){ if(!grid.querySelector('.game')) grid.innerHTML='<div class="board-msg">Scores are taking a breather. Check back soon.</div>'; });
+    }
+    document.querySelectorAll('#boardFilters .pill').forEach(function(p){
+      p.addEventListener('click',function(){
+        document.querySelectorAll('#boardFilters .pill').forEach(function(x){x.classList.remove('active');});
+        p.classList.add('active'); curFilter=p.getAttribute('data-f'); applyFilter();
+      });
     });
-  });
+    load();
+    setInterval(load,60000);
+  })();
 
   // Newsletter forms — notify Brad on every signup via Formsubmit (no backend needed).
   // First submission sends Brad a one-time activation email he must confirm.
