@@ -111,37 +111,34 @@
   .sub-card button{background:var(--bg);color:#fff;border:0;border-radius:6px;padding:12px;cursor:pointer;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:1.5px;text-transform:uppercase}
   .form-ok{font-family:var(--cond);letter-spacing:1px;text-transform:uppercase;font-size:14px;color:#fff;margin-top:8px;display:none}
 
-  /* world cup center */
-  .wc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
-  .wc-loading{grid-column:1/-1;font-family:var(--cond);letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:24px 0;text-align:center}
-  .wc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:16px;transition:border-color .15s}
-  .wc-card:hover{border-color:#3A3F49}
-  .wc-top{display:flex;justify-content:space-between;align-items:center;font-family:var(--cond);font-size:12px;letter-spacing:1px;text-transform:uppercase}
-  .wc-status{color:var(--muted)}
-  .wc-status.live{color:var(--accent);display:flex;align-items:center;gap:6px}
-  .wc-status.live .dot{width:7px;height:7px;background:var(--accent)}
-  .wc-venue{color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:48%;text-align:right}
-  .wc-match{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .wc-team{display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;min-width:0}
-  .wc-team img{width:44px;height:44px;object-fit:contain}
-  .wc-team .ab{font-family:var(--cond);font-weight:700;font-size:17px;letter-spacing:.5px;color:var(--ink)}
-  .wc-team .full{font-family:var(--body);font-size:11px;color:var(--dim);text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .wc-team.dim .ab{color:var(--muted)}
-  .wc-team.win .ab{color:#fff}
-  .wc-score{font-family:var(--anton);font-size:28px;letter-spacing:1px;white-space:nowrap;color:var(--ink);text-align:center}
-  .wc-score .vs{font-size:14px;color:var(--dim);font-family:var(--cond);font-weight:700}
-  .wc-score.vsonly{font-size:15px}
-  .wc-odds{border-top:1px solid var(--divider);margin-top:-2px;padding-top:12px}
-  .wc-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--badge)}
-  .wc-bar i{display:block;height:100%}
-  .wc-bar .h{background:var(--accent)}
-  .wc-bar .d{background:var(--ghost-2)}
-  .wc-bar .a{background:var(--dim-2)}
-  .wc-odds-lbl{display:flex;justify-content:space-between;gap:6px;font-family:var(--cond);font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--bright);margin-top:8px}
-  .wc-odds-lbl .mid{color:var(--muted)}
-  .wc-odds-src{font-family:var(--cond);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim-2);margin-top:6px}
-  @media(max-width:980px){.wc-grid{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:560px){.wc-grid{grid-template-columns:1fr}}
+  /* friday night lights */
+  .fnl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+  .fnl-day{grid-column:1/-1;display:flex;align-items:center;gap:12px;margin-top:8px}
+  .fnl-day:first-child{margin-top:0}
+  .fnl-day .d{font-family:var(--anton);font-size:19px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink)}
+  .fnl-day .rule{flex:1;height:1px;background:var(--divider)}
+  .fnl-day .ct{font-family:var(--cond);font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--dim)}
+  .fnl-msg{grid-column:1/-1;font-family:var(--cond);font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:24px 0;text-align:center}
+  .fnl-src{font-family:var(--cond);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim-2);margin-top:12px;text-align:right}
+  .fnl-more{grid-column:1/-1;font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:none;border:1px dashed var(--ghost);border-radius:7px;padding:11px;cursor:pointer;transition:.15s}
+  .fnl-more:hover{color:#fff;border-color:var(--dim)}
+  .game .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
+  @media(max-width:1240px){.game .nm{max-width:140px}}
+  @media(max-width:980px){.fnl-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.fnl-grid{grid-template-columns:1fr}.game .nm{max-width:none}}
+
+  /* football wire */
+  .wire{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+  .wire-msg{grid-column:1/-1;font-family:var(--cond);font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:24px 0;text-align:center}
+  .story{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .15s;display:flex;flex-direction:column}
+  .story:hover{border-color:#3A3F49}
+  .story .th{height:110px;overflow:hidden;background:var(--card-2)}
+  .story .th img{width:100%;height:100%;object-fit:cover;display:block}
+  .story .sb{padding:13px 15px 15px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .story .stag{font-family:var(--cond);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+  .story .sh2{font-family:var(--cond);font-weight:700;font-size:16px;line-height:1.2;color:var(--ink)}
+  @media(max-width:980px){.wire{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.wire{grid-template-columns:1fr}}
 
   /* section header */
   .sec{padding-top:36px}
@@ -338,8 +335,8 @@
           "position": 1,
           "item": {
             "@type": "PodcastEpisode",
-            "name": "The Knicks Are Back & NYC Is On Fire — World Cup Fever Takes Over",
-            "url": "https://www.youtube.com/watch?v=olkYN0jiARw",
+            "name": "The Browns Just Made a Huge Mistake — Deshaun Watson Drama",
+            "url": "https://www.youtube.com/watch?v=vDDr3NhhWB8",
             "partOfSeries": { "@id": "https://itsmondayyall.com/#podcast" }
           }
         },
@@ -410,7 +407,7 @@
       <a href="#board">Scores</a>
       <a href="#board">Standings</a>
       <a href="#recent">Hot Takes</a>
-      <a href="#hs">High School</a>
+      <a href="#fnl">Friday Night</a>
     </nav>
     <div class="nav-right">
       <a href="https://www.youtube.com/@itsmondayyall?sub_confirmation=1" target="_blank" rel="noopener" class="btn-sub">&#9654; Subscribe</a>
@@ -430,10 +427,10 @@
   <div class="ticker-vp">
     <div class="ticker-track" id="tickTrack">
       <!-- fallback: shows until live scores load, and stays if a feed is unreachable -->
-      <span><b class="lg">WC</b>&nbsp; 2026 World Cup — live all summer &nbsp;<span class="lg">·</span></span>
-      <span><b class="lg">MLB</b>&nbsp; Baseball every night &nbsp;<span class="lg">·</span></span>
+      <span><b class="lg">NFL</b>&nbsp; Football is back &nbsp;<span class="lg">·</span></span>
+      <span><b class="lg">CFB</b>&nbsp; College football Week 1 &nbsp;<span class="lg">·</span></span>
       <span><b class="lg">IMY</b>&nbsp; New episode every Monday &nbsp;<span class="lg">·</span></span>
-      <span><b class="lg">WC</b>&nbsp; World Cup fever — catch the show &nbsp;<span class="lg">·</span></span>
+      <span><b class="lg">MLB</b>&nbsp; Pennant races heating up &nbsp;<span class="lg">·</span></span>
     </div>
   </div>
 </div>
@@ -442,15 +439,15 @@
 <div class="wrap hero">
   <!-- featured episode — latest upload from the channel -->
   <div class="feature">
-    <img src="https://i.ytimg.com/vi/olkYN0jiARw/maxresdefault.jpg" alt="The Knicks Are Back & NYC Is On Fire — World Cup Fever Takes Over" style="object-position:center 22%" />
+    <img src="https://i.ytimg.com/vi/vDDr3NhhWB8/maxresdefault.jpg" alt="The Browns Just Made a Huge Mistake — Deshaun Watson Drama" style="object-position:center 22%" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/vDDr3NhhWB8/hqdefault.jpg'" />
     <div class="grad"></div>
     <div class="tag"><span><span class="dot"></span>New Episode</span></div>
-    <a class="play-lg" href="https://www.youtube.com/watch?v=olkYN0jiARw" target="_blank" rel="noopener" aria-label="Play latest episode">&#9654;</a>
+    <a class="play-lg" href="https://www.youtube.com/watch?v=vDDr3NhhWB8" target="_blank" rel="noopener" aria-label="Play latest episode">&#9654;</a>
     <div class="meta-blk">
-      <div class="meta">27 min · Your Agent Brad &amp; Jersey Fred</div>
-      <div class="ftitle">The Knicks Are Back &amp; NYC Is On Fire — World Cup Fever Takes Over</div>
+      <div class="meta">Your Agent Brad &amp; Jersey Fred</div>
+      <div class="ftitle">The Browns Just Made a Huge Mistake — Deshaun Watson Drama</div>
       <div class="fbtns">
-        <a class="b-play" href="https://www.youtube.com/watch?v=olkYN0jiARw" target="_blank" rel="noopener"><span style="font-size:14px">&#9654;</span> Play Episode</a>
+        <a class="b-play" href="https://www.youtube.com/watch?v=vDDr3NhhWB8" target="_blank" rel="noopener"><span style="font-size:14px">&#9654;</span> Play Episode</a>
         <a class="b-queue" href="https://open.spotify.com/show/4w1E4N164ijEepYWSkGbhy" target="_blank" rel="noopener">+ Add to queue</a>
       </div>
     </div>
@@ -461,9 +458,9 @@
     <div class="panel">
       <div class="ph">On The Show This Week</div>
       <div class="week-list">
-        <div class="row"><span class="n">01</span><span class="t">The Knicks are back — and NYC is on fire</span></div>
-        <div class="row"><span class="n">02</span><span class="t">World Cup fever takes over the country</span></div>
-        <div class="row"><span class="n">03</span><span class="t">MSG drama, Yankees baseball &amp; a wild week in NY sports</span></div>
+        <div class="row"><span class="n">01</span><span class="t">The Browns &amp; Deshaun Watson — total chaos in Cleveland</span></div>
+        <div class="row"><span class="n">02</span><span class="t">NFL preseason wraps — the real thing is days away</span></div>
+        <div class="row"><span class="n">03</span><span class="t">Fantasy football draft season — who do you trust?</span></div>
       </div>
     </div>
 
@@ -480,33 +477,40 @@
   </div>
 </div>
 
-<!-- ================= WORLD CUP CENTER ================= -->
-<!-- Live from the free ESPN World Cup feed. Auto-hides if there are no matches that day. -->
-<section class="wrap sec" id="wcSection">
+<!-- ================= FRIDAY NIGHT LIGHTS ================= -->
+<!-- Metro Detroit HS football, live from the MHSAA Score Center endpoint (public record, attributed).
+     Tri-county school roster baked below in JS; window = this week's Thu-Sat. -->
+<section class="wrap sec" id="fnl">
   <div class="sec-head">
     <div style="display:flex;align-items:baseline;gap:16px">
-      <span class="title">World Cup <span class="accent">2026</span></span>
-      <span class="subt">Live across North America</span>
+      <span class="title">Friday Night <span class="accent">Lights</span></span>
+      <span class="subt">Metro Detroit HS football</span>
     </div>
-    <a class="link-more" href="https://www.espn.com/soccer/scoreboard/_/league/fifa.world" target="_blank" rel="noopener">Full schedule →</a>
+    <div class="filters" id="fnlFilters">
+      <button class="pill active" data-c="all">All</button>
+      <button class="pill" data-c="O">Oakland</button>
+      <button class="pill" data-c="M">Macomb</button>
+      <button class="pill" data-c="W">Wayne</button>
+    </div>
   </div>
-  <div class="wc-grid" id="wcGrid">
-    <div class="wc-loading">Loading today's matches…</div>
+  <div class="fnl-grid" id="fnlGrid">
+    <div class="fnl-msg">Loading this week's games…</div>
   </div>
+  <div class="fnl-src">Schedules &amp; scores via <a href="https://my.mhsaa.com/Sports/Score-Center" target="_blank" rel="noopener" style="color:var(--dim);text-decoration:underline">MHSAA Score Center</a></div>
 </section>
 
 <!-- ================= THE BOARD ================= -->
-<!-- Live MLB slate, auto-fed from the free ESPN scoreboard (no key). Refreshes 60s. -->
+<!-- Multi-league live board (free ESPN scoreboards, no key). Refreshes 60s. -->
 <section class="wrap sec" id="board">
   <div class="sec-head">
     <div style="display:flex;align-items:baseline;gap:16px">
       <span class="title">The Board</span>
-      <span class="subt">Yesterday &amp; today around the league</span>
+      <span class="subt">This week's slates &amp; final scores</span>
     </div>
     <div class="filters" id="boardFilters">
-      <button class="pill active" data-f="all">All</button>
-      <button class="pill" data-f="in">Live</button>
-      <button class="pill" data-f="post">Final</button>
+      <button class="pill" data-lg="nfl">NFL</button>
+      <button class="pill" data-lg="cfb">College</button>
+      <button class="pill" data-lg="mlb">MLB</button>
     </div>
   </div>
 
@@ -514,23 +518,34 @@
     <div class="board-msg">Loading today's games…</div>
   </div>
 
-  <!-- HIGH SCHOOL strip — Michigan -->
-  <!-- Verified from MHSAA: the Final 16 headed to McLane Stadium (semis Thu–Fri, finals Sat).
-       Top 5 by win total. Update after the finals; curate by hand (no live HS feed). -->
+  <!-- THIS WEEK strip — curated weekly (verify facts before editing; no invented storylines) -->
   <div class="hs" id="hs">
     <div class="hs-label">
-      <span class="eb">Road to East Lansing</span>
-      <span class="ti">MI HS Baseball</span>
-      <span class="su">Final 16 · Most Wins</span>
+      <span class="eb">The Watch List</span>
+      <span class="ti">This Week in Football</span>
+      <span class="su">Week of Aug 27</span>
     </div>
     <div class="hs-pills">
-      <div class="hs-pill one"><span class="rk">1</span><span class="sn">Mt. Pleasant Sacred Heart</span><span class="rec">36-4 · D4</span></div>
-      <div class="hs-pill"><span class="rk">2</span><span class="sn">GR Kenowa Hills</span><span class="rec">35-2 · D2</span></div>
-      <div class="hs-pill"><span class="rk">3</span><span class="sn">Brownstown Woodhaven</span><span class="rec">34-5-1 · D1</span></div>
-      <div class="hs-pill"><span class="rk">4</span><span class="sn">Orchard Lake St. Mary's</span><span class="rec">32-5 · D2</span></div>
-      <div class="hs-pill"><span class="rk">5</span><span class="sn">TC St. Francis</span><span class="rec">32-5 · D3</span></div>
+      <div class="hs-pill one"><span class="rk">HS</span><span class="sn">Opening night — Metro Detroit is under the lights tonight &amp; Friday</span></div>
+      <div class="hs-pill"><span class="rk">NFL</span><span class="sn">Lions close the preseason Saturday at Indy, 1 PM</span></div>
+      <div class="hs-pill"><span class="rk">CFB</span><span class="sn">College football returns — Week 1 kicks off this weekend</span></div>
     </div>
-    <a class="hs-more" href="high-school.html">Full bracket →</a>
+    <a class="hs-more" href="#fnl">HS scores →</a>
+  </div>
+</section>
+
+<!-- ================= THE FOOTBALL WIRE ================= -->
+<!-- Trending headlines, live from ESPN's public NFL + college football news feeds. -->
+<section class="wrap sec" id="wire">
+  <div class="sec-head">
+    <div style="display:flex;align-items:baseline;gap:16px">
+      <span class="title">The Football Wire</span>
+      <span class="subt">Trending stories</span>
+    </div>
+    <a class="link-more" href="https://www.espn.com/nfl/" target="_blank" rel="noopener">More at ESPN →</a>
+  </div>
+  <div class="wire" id="wireGrid">
+    <div class="wire-msg">Loading headlines…</div>
   </div>
 </section>
 
@@ -626,7 +641,7 @@
     <nav class="foot-nav">
       <a href="#top">The Show</a>
       <a href="#board">Scores</a>
-      <a href="#hs">High School</a>
+      <a href="#fnl">Friday Night</a>
       <a href="#rundown">Submit a Tip</a>
       <a href="#rundown">Contact</a>
     </nav>
@@ -661,8 +676,9 @@
   //   World Cup → 'soccer/fifa.world' · MLB → 'baseball/mlb' · NFL → 'football/nfl'
   //   NBA → 'basketball/nba' · NHL → 'hockey/nhl' · sep '@' for US sports, 'v' for soccer
   var TICKER_SOURCES = [
-    { sport:'soccer/fifa.world', label:'WC',  sep:'v' },
-    { sport:'baseball/mlb',      label:'MLB', sep:'@' }
+    { sport:'football/nfl',              label:'NFL', sep:'@' },
+    { sport:'football/college-football', label:'CFB', sep:'@' },
+    { sport:'baseball/mlb',              label:'MLB', sep:'@' }
   ];
   (function(){
     var track=document.getElementById('tickTrack');
@@ -709,129 +725,129 @@
     setInterval(load,60000);
   })();
 
-  // ===== WORLD CUP CENTER — live scores (ESPN) + market odds (Polymarket) =====
+  // ===== FRIDAY NIGHT LIGHTS — Metro Detroit HS football (MHSAA Score Center, public record) =====
   (function(){
-    var sec=document.getElementById('wcSection'), grid=document.getElementById('wcGrid');
-    if(!sec||!grid||!window.fetch||!window.Promise) { if(sec) sec.style.display='none'; return; }
-    var API='https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard';
-    var lastEvents=null, oddsWins=[], oddsDraws=[], oddsStarted=false;
-    function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-    var STOP={ir:1,fc:1,sc:1,afc:1,of:1};
-    function toks(n){var o=[]; String(n||'').toLowerCase().split(/[^a-z]+/).forEach(function(t){if(t.length>=3&&!STOP[t])o.push(t);}); return o;}
-    function inter(a,b){for(var i=0;i<a.length;i++){if(b.indexOf(a[i])>-1)return true;} return false;}
-
-    // ----- Polymarket odds: parse flat markets, match by date + team name tokens -----
-    function parseMarkets(list){
-      (list||[]).forEach(function(m){
-        var pr; try{pr=JSON.parse(m.outcomePrices||'[]');}catch(e){return;}
-        if(pr[0]==null) return;
-        var q=m.question||'';
-        var mw=q.match(/^Will (.+) win on (\d{4}-\d{2}-\d{2})\?$/);
-        var md=q.match(/^Will (.+) vs\. (.+) end in a draw\?$/);
-        if(mw) oddsWins.push({tok:toks(mw[1]),date:mw[2],p:parseFloat(pr[0])});
-        else if(md) oddsDraws.push({a:toks(md[1]),b:toks(md[2]),p:parseFloat(pr[0])});
+    var grid=document.getElementById('fnlGrid');
+    if(!grid||!window.fetch) return;
+    // Tri-county varsity roster, derived from MHSAA conference schedules (O=Oakland, M=Macomb, W=Wayne)
+    var SCHOOLS={"Arts & Technology Academy of Pontiac":"O","Auburn Hills Avondale":"O","Auburn Hills Oakland Christian":"O","Berkley":"O","Birmingham Groves":"O","Birmingham Seaholm":"O","Bloomfield Hills":"O","Bloomfield Hills Brother Rice":"O","Bloomfield Hills Cranbrook Kingswood":"O","Clarkston":"O","Clarkston Everest Collegiate":"O","Clawson":"O","Detroit Catholic Central":"O","Detroit Country Day":"O","Farmington":"O","Ferndale":"O","Hazel Park":"O","Lake Orion":"O","Madison Heights Bishop Foley":"O","Madison Heights Lamphere":"O","Madison Heights Madison":"O","Milford":"O","North Farmington":"O","Novi":"O","Oak Park":"O","Orchard Lake St Mary's":"O","Ortonville Brandon":"O","Oxford":"O","Pontiac":"O","Pontiac Notre Dame Prep":"O","Rochester":"O","Rochester Adams":"O","Rochester Hills Lutheran Northwest":"O","Rochester Hills Stoney Creek":"O","Royal Oak":"O","Royal Oak Shrine Catholic":"O","South Lyon":"O","South Lyon East":"O","Southfield Arts & Technology":"O","Southfield Bradford Academy":"O","Troy":"O","Troy Athens":"O","Walled Lake Central":"O","Walled Lake Northern":"O","Walled Lake Western":"O","Waterford Kettering":"O","Waterford Mott":"O","Waterford Our Lady of the Lakes":"O","West Bloomfield":"O","White Lake Lakeland":"O",
+    "Center Line":"M","Clinton Township Chippewa Valley":"M","Clinton Township Clintondale":"M","Eastpointe":"M","Fraser":"M","Harrison Township L'Anse Creuse":"M","Macomb Dakota":"M","Macomb L'Anse Creuse North":"M","Macomb Lutheran North":"M","Mount Clemens":"M","New Baltimore Anchor Bay":"M","New Haven":"M","Romeo":"M","Roseville":"M","St Clair Shores Lake Shore":"M","St Clair Shores Lakeview":"M","St Clair Shores South Lake":"M","Sterling Heights":"M","Sterling Heights Parkway Christian":"M","Sterling Heights Stevenson":"M","Utica":"M","Utica Eisenhower":"M","Utica Ford":"M","Warren Cousino":"M","Warren De La Salle Collegiate":"M","Warren Fitzgerald":"M","Warren Lincoln":"M","Warren Michigan Collegiate":"M","Warren Mott":"M","Warren Woods Tower":"M",
+    "Allen Park":"W","Allen Park Cabrini":"W","Belleville":"W","Brownstown Woodhaven":"W","Canton":"W","Dearborn":"W","Dearborn Divine Child":"W","Dearborn Edsel Ford":"W","Dearborn Fordson":"W","Dearborn Heights Annapolis":"W","Dearborn Heights Crestwood":"W","Dearborn Heights Robichaud":"W","Detroit Cass Tech":"W","Detroit Central":"W","Detroit Cody":"W","Detroit Communication Media Arts":"W","Detroit Community":"W","Detroit Denby":"W","Detroit Douglass":"W","Detroit East English":"W","Detroit Edison":"W","Detroit Henry Ford":"W","Detroit Leadership Academy":"W","Detroit Lincoln-King":"W","Detroit Loyola":"W","Detroit Martin Luther King":"W","Detroit Mumford":"W","Detroit Northwestern":"W","Detroit Old Redford":"W","Detroit Osborn":"W","Detroit Pershing":"W","Detroit Renaissance":"W","Detroit Southeastern":"W","Detroit U of D Jesuit":"W","Detroit University Prep":"W","Detroit University Prep Science & Math":"W","Detroit Voyageur College Prep":"W","Detroit Western":"W","Ecorse":"W","Flat Rock":"W","Garden City":"W","Gibraltar Carlson":"W","Grosse Ile":"W","Grosse Pointe North":"W","Grosse Pointe South":"W","Grosse Pointe Woods University Liggett":"W","Hamtramck":"W","Harper Woods":"W","Harper Woods Chandler Park":"W","Lincoln Park":"W","Livonia Churchill":"W","Livonia Clarenceville":"W","Livonia Franklin":"W","Livonia Stevenson":"W","Lutheran Westland":"W","Melvindale":"W","Melvindale Academy for Business & Tech":"W","New Boston Huron":"W","Northville":"W","Plymouth":"W","Redford Thurston":"W","Redford Union":"W","Redford Westfield Prep":"W","River Rouge":"W","Riverview":"W","Riverview Gabriel Richard (BV)":"W","Romulus":"W","Romulus Summit Academy North":"W","Salem":"W","Southgate Anderson":"W","Taylor":"W","Trenton":"W","Wayne Memorial":"W","Westland John Glenn":"W","Wyandotte Roosevelt":"W"};
+    var CN={O:'Oakland',M:'Macomb',W:'Wayne'};
+    var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var curC='all', lastGames=[], expanded={};
+    function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+    function fmtDate(dt){return (dt.getMonth()+1)+'/'+dt.getDate()+'/'+dt.getFullYear();}
+    function windowDates(){ // the football weekend (Thu-Sat) this page should show
+      var now=new Date(), d=now.getDay(), thu=new Date(now);
+      if(d>=4){ thu.setDate(now.getDate()-(d-4)); }      // Thu/Fri/Sat: current weekend
+      else if(d===3){ thu.setDate(now.getDate()+1); }    // Wed: upcoming weekend
+      else { thu.setDate(now.getDate()-(d+4)); }         // Sun-Tue: last weekend's finals
+      var sat=new Date(thu); sat.setDate(thu.getDate()+2);
+      return [thu,sat];
+    }
+    function gameCard(g){
+      var county=SCHOOLS[g.HostTeamName]||SCHOOLS[g.AwayTeamName]||'';
+      var hs=g.HostScore, as=g.AwayScore;
+      var done=(hs!=null&&hs!==''&&as!=null&&as!=='');
+      var hn=parseInt(hs,10), an=parseInt(as,10);
+      var status=done?'<span class="final">Final</span>':'<span class="final">'+esc(g.ContestTime||'')+'</span>';
+      function row(name,sc,win){return '<div class="team'+(win?' win':'')+'"><span class="who"><span class="nm">'+esc(name)+'</span></span><span class="scr">'+esc(sc)+'</span></div>';}
+      return '<div class="game">'+
+        '<div class="gm"><span>'+esc(CN[county]||'Metro')+'</span>'+status+'</div>'+
+        row(g.AwayTeamName, done?as:'', done&&an>hn)+
+        row(g.HostTeamName, done?hs:'', done&&hn>an)+'</div>';
+    }
+    function render(){
+      var games=lastGames.filter(function(g){ return curC==='all'||SCHOOLS[g.HostTeamName]===curC||SCHOOLS[g.AwayTeamName]===curC; });
+      if(!games.length){ grid.innerHTML='<div class="fnl-msg">No games in this window.</div>'; return; }
+      var byDate={};
+      games.forEach(function(g){ var k=(g.ContestDateWithYear||'').slice(0,10); (byDate[k]=byDate[k]||[]).push(g); });
+      var html='', LIMIT=12;
+      Object.keys(byDate).sort().forEach(function(k){
+        var dt=new Date(k+'T12:00:00'); var list=byDate[k];
+        list.sort(function(a,b){ return (a.HostTeamName||'').localeCompare(b.HostTeamName||''); });
+        html+='<div class="fnl-day"><span class="d">'+DAYS[dt.getDay()]+' '+(dt.getMonth()+1)+'/'+dt.getDate()+'</span><span class="rule"></span><span class="ct">'+list.length+' games</span></div>';
+        var open=expanded[k]||list.length<=LIMIT;
+        html+=(open?list:list.slice(0,LIMIT)).map(gameCard).join('');
+        if(!open){ html+='<button class="fnl-more" data-k="'+k+'">Show all '+list.length+' games</button>'; }
+      });
+      grid.innerHTML=html;
+      grid.querySelectorAll('.fnl-more').forEach(function(b){
+        b.addEventListener('click',function(){ expanded[b.getAttribute('data-k')]=true; render(); });
       });
     }
-    function dwithin(d1,d2){ // tolerate ±1 day (ESPN stores UTC; late kickoffs roll to next day vs Polymarket's match date)
-      var a=Date.parse(d1+'T00:00:00Z'), b=Date.parse(d2+'T00:00:00Z');
-      if(isNaN(a)||isNaN(b)) return d1===d2;
-      return Math.abs(a-b)<=86400000;
+    function load(){
+      var w=windowDates();
+      var url='https://my.mhsaa.com/DesktopModules/MHSAA-Endpoint/handlers/ContestWithParticipantDepotSearch.ashx?Method=ScoreCenterSearch&Level=V&UserId=-1&Sport=BFB&Conference=0&StartDate='+encodeURIComponent(fmtDate(w[0]))+'&EndDate='+encodeURIComponent(fmtDate(w[1]));
+      fetch(url).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        var all=Array.isArray(d)?d:[];
+        lastGames=all.filter(function(g){ return SCHOOLS[g.HostTeamName]||SCHOOLS[g.AwayTeamName]; });
+        render();
+      }).catch(function(){ if(!grid.querySelector('.game')) grid.innerHTML='<div class="fnl-msg">Scores are taking a breather. Check back soon.</div>'; });
     }
-    function lookupOdds(t1,t2,date){
-      if(!date) return null;
-      var ta=toks((t1.team||{}).displayName||(t1.team||{}).shortDisplayName||'');
-      var tb=toks((t2.team||{}).displayName||(t2.team||{}).shortDisplayName||'');
-      function fw(t){for(var i=0;i<oddsWins.length;i++){var w=oddsWins[i]; if(dwithin(w.date,date)&&inter(t,w.tok))return w.p;} return null;}
-      var pa=fw(ta), pb=fw(tb), pd=null;
-      for(var i=0;i<oddsDraws.length;i++){var d=oddsDraws[i]; if((inter(ta,d.a)&&inter(tb,d.b))||(inter(ta,d.b)&&inter(tb,d.a))){pd=d.p;break;}}
-      if(pa==null||pb==null||pd==null) return null;
-      var tot=pa+pb+pd; if(tot<=0) return null;
-      return {a:Math.round(pa/tot*100), d:Math.round(pd/tot*100), b:Math.round(pb/tot*100)};
-    }
-    function oddsBar(od,ab1,ab2){
-      return '<div class="wc-odds"><div class="wc-bar">'+
-        '<i class="h" style="width:'+od.a+'%"></i><i class="d" style="width:'+od.d+'%"></i><i class="a" style="width:'+od.b+'%"></i></div>'+
-        '<div class="wc-odds-lbl"><span>'+esc(ab1)+' '+od.a+'%</span><span class="mid">Draw '+od.d+'%</span><span>'+esc(ab2)+' '+od.b+'%</span></div>'+
-        '<div class="wc-odds-src">Win odds · Polymarket</div></div>';
-    }
-    function loadOdds(){
-      oddsWins=[]; oddsDraws=[];
-      var base='https://gamma-api.polymarket.com/markets?closed=false&active=true&tag=world-cup&order=volume24hr&ascending=false&limit=100&offset=';
-      Promise.all([0,100].map(function(off){
-        return fetch(base+off).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];});
-      })).then(function(pages){
-        pages.forEach(function(pg){ parseMarkets(pg&&pg.length?pg:(pg&&pg.data)||[]); });
-        if(lastEvents) renderEvents(lastEvents); // repaint cards now that odds exist
+    document.querySelectorAll('#fnlFilters .pill').forEach(function(p){
+      p.addEventListener('click',function(){
+        document.querySelectorAll('#fnlFilters .pill').forEach(function(x){x.classList.remove('active');});
+        p.classList.add('active'); curC=p.getAttribute('data-c'); render();
       });
-    }
-    function startOdds(){
-      if(oddsStarted) return; oddsStarted=true;
-      loadOdds();
-      setInterval(loadOdds,300000); // odds drift slowly — refresh every 5 min
-    }
-
-    // ----- ESPN scores: render cards (with odds bar when available) -----
-    function teamBlk(t,decided){
-      var tm=t.team||{}, logo=tm.logo||((tm.logos||[{}])[0]||{}).href||'';
-      var cls='wc-team'+(decided&&!t.winner?' dim':'')+(decided&&t.winner?' win':'');
-      var img=logo?'<img src="'+esc(logo)+'" alt="'+esc(tm.displayName||'')+'" onerror="this.style.visibility=\'hidden\'"/>':'';
-      return '<div class="'+cls+'">'+img+'<span class="ab">'+esc(tm.abbreviation||'')+'</span><span class="full">'+esc(tm.shortDisplayName||tm.displayName||'')+'</span></div>';
-    }
-    function card(e){
-      try{
-        var c=e.competitions[0], st=e.status.type, cs=c.competitors;
-        var t1=cs[0].homeAway==='home'?cs[1]:cs[0];
-        var t2=cs[0].homeAway==='home'?cs[0]:cs[1];
-        var city=(((c.venue||{}).address||{}).city||'').split(',')[0];
-        var statusHtml, center, decided=false;
-        if(st.state==='in'){
-          statusHtml='<span class="wc-status live"><span class="dot"></span>'+esc(st.shortDetail||'Live')+'</span>';
-          center='<span class="wc-score">'+esc(t1.score)+' <span class="vs">-</span> '+esc(t2.score)+'</span>';
-        }else if(st.state==='post'){
-          decided=true;
-          statusHtml='<span class="wc-status">Full Time</span>';
-          center='<span class="wc-score">'+esc(t1.score)+' <span class="vs">-</span> '+esc(t2.score)+'</span>';
-        }else{
-          var dt=new Date(e.date), tlabel='Upcoming';
-          if(!isNaN(dt.getTime())){ try{ tlabel=dt.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}); }catch(x){} }
-          statusHtml='<span class="wc-status">'+esc(tlabel)+'</span>';
-          center='<span class="wc-score vsonly"><span class="vs">vs</span></span>';
-        }
-        var od=(!decided)?lookupOdds(t1,t2,(e.date||'').slice(0,10)):null;
-        var odsHtml=od?oddsBar(od,(t1.team||{}).abbreviation,(t2.team||{}).abbreviation):'';
-        return '<div class="wc-card"><div class="wc-top">'+statusHtml+'<span class="wc-venue">'+esc(city)+'</span></div>'+
-          '<div class="wc-match">'+teamBlk(t1,decided)+center+teamBlk(t2,decided)+'</div>'+odsHtml+'</div>';
-      }catch(err){return '';}
-    }
-    function renderEvents(events){
-      var html=(events||[]).map(card).join('');
-      if(html){ grid.innerHTML=html; sec.style.display=''; } else { sec.style.display='none'; }
-    }
-    function loadScores(){
-      fetch(API).then(function(r){return r.ok?r.json():null;}).then(function(d){
-        var ev=(d&&d.events)||[];
-        if(ev.length){ lastEvents=ev; renderEvents(ev); } else { sec.style.display='none'; }
-      }).catch(function(){ if(!grid.querySelector('.wc-card')) sec.style.display='none'; });
-    }
-    loadScores();
-    setInterval(loadScores,60000);
-    // Defer the heavier odds feed so it doesn't compete with first paint
-    setTimeout(startOdds,1200);
+    });
+    load();
+    setInterval(load,120000); // Friday-night scores refresh every 2 min
   })();
 
-  // ===== THE BOARD — live MLB slate (free ESPN feed, no key) =====
+  // ===== THE FOOTBALL WIRE — trending headlines (ESPN public news feeds) =====
+  (function(){
+    var grid=document.getElementById('wireGrid');
+    if(!grid||!window.fetch||!window.Promise) return;
+    function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function pick(list,tag){
+      return (list||[]).filter(function(a){return a&&a.headline;}).map(function(a){
+        var img=(a.images&&a.images[0]&&a.images[0].url)||'';
+        var link=(a.links&&a.links.web&&a.links.web.href)||'';
+        return {h:a.headline, img:img, link:link, tag:tag};
+      });
+    }
+    function load(){
+      Promise.all([
+        fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/news').then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+        fetch('https://site.api.espn.com/apis/site/v2/sports/football/college-football/news').then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+      ]).then(function(res){
+        var nfl=pick(res[0]&&res[0].articles,'NFL'), cfb=pick(res[1]&&res[1].articles,'College');
+        var mixed=[]; var n=Math.max(nfl.length,cfb.length);
+        for(var i=0;i<n&&mixed.length<8;i++){ if(nfl[i])mixed.push(nfl[i]); if(cfb[i]&&mixed.length<8)mixed.push(cfb[i]); }
+        if(!mixed.length){ grid.innerHTML='<div class="wire-msg">No headlines right now.</div>'; return; }
+        grid.innerHTML=mixed.map(function(a){
+          var th=a.img?'<div class="th"><img src="'+esc(a.img)+'" alt="" loading="lazy" onerror="this.parentNode.style.display=\'none\'"/></div>':'';
+          var open=a.link?'<a class="story" href="'+esc(a.link)+'" target="_blank" rel="noopener">':'<div class="story">';
+          var close=a.link?'</a>':'</div>';
+          return open+th+'<div class="sb"><span class="stag">'+a.tag+'</span><span class="sh2">'+esc(a.h)+'</span></div>'+close;
+        }).join('');
+      });
+    }
+    load();
+    setInterval(load,600000); // refresh headlines every 10 min
+  })();
+
+  // ===== THE BOARD — multi-league scoreboard (free ESPN feeds, no key) =====
   (function(){
     var grid=document.getElementById('boardGrid');
     if(!grid||!window.fetch||!window.Promise) return;
-    var API='https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard';
-    var curFilter='all';
+    var LEAGUES={
+      nfl:{path:'football/nfl',              label:'NFL', weekly:true},
+      cfb:{path:'football/college-football', label:'CFB', weekly:true},
+      mlb:{path:'baseball/mlb',              label:'MLB'}
+    };
+    var DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    // College Saturdays get the college board first; otherwise lead with the NFL
+    var curLg=(new Date().getDay()===6)?'cfb':'nfl';
     function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
     function row(t,decided){
       var win=decided&&t.winner;
       var sc=decided||t.state==='in'?esc(t.score):'';
       return '<div class="team'+(win?' win':'')+'"><span class="who"><span class="abbr">'+esc((t.team||{}).abbreviation||'')+'</span><span class="nm">'+esc((t.team||{}).shortDisplayName||(t.team||{}).name||'')+'</span></span><span class="scr">'+sc+'</span></div>';
     }
-    function card(e,dayLabel){
+    function card(e,lgLabel,dayLabel){
       try{
         var c=e.competitions[0], st=e.status.type, cs=c.competitors;
         var away=cs[0].homeAway==='away'?cs[0]:cs[1];
@@ -842,36 +858,45 @@
         else { var d=new Date(e.date), t='Scheduled'; if(!isNaN(d.getTime())){ try{t=d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});}catch(x){} } status='<span class="final">'+esc(t)+'</span>'; }
         away.state=state; home.state=state;
         var decided=(state==='post');
-        return '<div class="game" data-state="'+state+'"><div class="gm"><span>'+esc(dayLabel||'MLB')+'</span>'+status+'</div>'+row(away,decided)+row(home,decided)+'</div>';
+        return '<div class="game"><div class="gm"><span>'+esc(lgLabel+' · '+dayLabel)+'</span>'+status+'</div>'+row(away,decided)+row(home,decided)+'</div>';
       }catch(err){return '';}
     }
-    function applyFilter(){
-      var games=grid.querySelectorAll('.game'); var shown=0;
-      games.forEach(function(g){
-        var ok=curFilter==='all'||g.getAttribute('data-state')===curFilter;
-        g.style.display=ok?'':'none'; if(ok)shown++;
-      });
-      var msg=grid.querySelector('.board-msg');
-      if(shown===0){ if(!msg){msg=document.createElement('div');msg.className='board-msg';grid.appendChild(msg);} msg.textContent=curFilter==='in'?'No games in progress right now.':'No games to show.'; msg.style.display=''; }
-      else if(msg){ msg.style.display='none'; }
-    }
     function ymd(dt){var m=dt.getMonth()+1,d=dt.getDate();return ''+dt.getFullYear()+(m<10?'0':'')+m+(d<10?'0':'')+d;}
+    function dayTag(e){ var d=new Date(e.date); return isNaN(d.getTime())?'':DOW[d.getDay()]+' '+(d.getMonth()+1)+'/'+d.getDate(); }
     function load(){
+      var lg=LEAGUES[curLg]; if(!lg) return;
+      var api='https://site.api.espn.com/apis/site/v2/sports/'+lg.path+'/scoreboard';
+      var want=curLg;
+      if(lg.weekly){
+        // football is weekly — show the whole current week's slate, labeled by day
+        fetch(api).then(function(r){return r.ok?r.json():null;}).then(function(d){
+          if(want!==curLg) return;
+          var ev=(d&&d.events)||[];
+          ev=ev.slice().sort(function(a,b){return new Date(a.date)-new Date(b.date);});
+          var html=ev.map(function(e){return card(e,lg.label,dayTag(e));}).join('');
+          grid.innerHTML=html||'<div class="board-msg">No '+lg.label+' games this week — check back soon.</div>';
+        }).catch(function(){ if(!grid.querySelector('.game')) grid.innerHTML='<div class="board-msg">Scores are taking a breather. Check back soon.</div>'; });
+        return;
+      }
       var today=new Date(), yest=new Date(); yest.setDate(today.getDate()-1);
       Promise.all([
-        fetch(API+'?dates='+ymd(yest)).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
-        fetch(API+'?dates='+ymd(today)).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+        fetch(api+'?dates='+ymd(yest)).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+        fetch(api+'?dates='+ymd(today)).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
       ]).then(function(res){
+        if(want!==curLg) return; // user switched tabs mid-flight
         var yEv=(res[0]&&res[0].events)||[], tEv=(res[1]&&res[1].events)||[];
-        var html=yEv.map(function(e){return card(e,'Yesterday');}).join('')+tEv.map(function(e){return card(e,'Today');}).join('');
-        grid.innerHTML=html||'<div class="board-msg">No games to show.</div>';
-        applyFilter();
+        var html=yEv.map(function(e){return card(e,lg.label,'Yesterday');}).join('')+tEv.map(function(e){return card(e,lg.label,'Today');}).join('');
+        grid.innerHTML=html||'<div class="board-msg">No '+lg.label+' games in this window — check back soon.</div>';
       }).catch(function(){ if(!grid.querySelector('.game')) grid.innerHTML='<div class="board-msg">Scores are taking a breather. Check back soon.</div>'; });
     }
-    document.querySelectorAll('#boardFilters .pill').forEach(function(p){
+    var pills=document.querySelectorAll('#boardFilters .pill');
+    pills.forEach(function(p){
+      if(p.getAttribute('data-lg')===curLg) p.classList.add('active');
       p.addEventListener('click',function(){
-        document.querySelectorAll('#boardFilters .pill').forEach(function(x){x.classList.remove('active');});
-        p.classList.add('active'); curFilter=p.getAttribute('data-f'); applyFilter();
+        pills.forEach(function(x){x.classList.remove('active');});
+        p.classList.add('active'); curLg=p.getAttribute('data-lg');
+        grid.innerHTML='<div class="board-msg">Loading '+(LEAGUES[curLg]||{}).label+' games…</div>';
+        load();
       });
     });
     load();
