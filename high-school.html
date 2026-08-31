@@ -129,6 +129,15 @@
   /* trust line */
   .trust{margin-top:26px;font-family:var(--body);font-size:13.5px;color:var(--dim);text-align:center;line-height:1.6}
 
+  /* FAQ — answer-shaped, machine-readable */
+  .faq{margin-top:20px;display:grid;gap:10px}
+  .faq details{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:0 18px}
+  .faq summary{font-family:var(--cond);font-weight:700;font-size:17px;letter-spacing:.3px;padding:16px 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--accent);font-family:var(--anton);font-size:22px;line-height:1}
+  .faq details[open] summary::after{content:"\2013"}
+  .faq .a{font-family:var(--body);font-size:14.5px;color:var(--muted);line-height:1.55;padding:0 0 16px;margin:0}
+
   /* editor note — visible only in draft, remove before publishing */
   .editnote{background:#1a1206;border:1px dashed var(--accent);color:#f3c9b0;font-family:var(--body);font-size:13px;line-height:1.5;border-radius:10px;padding:14px 16px;margin-top:30px}
 
@@ -166,6 +175,126 @@
     .foot-in{flex-direction:column;align-items:flex-start}
   }
 </style>
+
+<link rel="canonical" href="https://itsmondayyall.com/high-school.html" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="It's Monday Y'All" />
+<meta property="og:title" content="The Monday Marquee — Michigan HS Sports" />
+<meta property="og:description" content="Michigan high school's top performers, statewide, every Monday. Curated and verified by the It's Monday Y'All sports desk." />
+<meta property="og:url" content="https://itsmondayyall.com/high-school.html" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- ================= STRUCTURED DATA (schema.org / JSON-LD) =================
+     Built ONLY from the verified facts shown on this page (MHSAA finals).
+     The FAQ entries below mirror the visible FAQ section word-for-word — keep
+     them in sync if you edit either one. Re-validate at
+     search.google.com/test/rich-results after any change. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://itsmondayyall.com/high-school.html#page",
+      "url": "https://itsmondayyall.com/high-school.html",
+      "name": "The Monday Marquee — Michigan HS Sports",
+      "description": "Michigan high school's top performers, statewide, every Monday. Curated and verified by the It's Monday Y'All sports desk.",
+      "isPartOf": { "@id": "https://itsmondayyall.com/#website" },
+      "publisher": { "@id": "https://itsmondayyall.com/#org" },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://itsmondayyall.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Michigan High School Sports", "item": "https://itsmondayyall.com/high-school.html" }
+      ]
+    },
+    {
+      "@type": "SportsEvent",
+      "name": "2026 MHSAA High School Baseball Finals",
+      "sport": "Baseball",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "description": "The Michigan high school baseball state finals — the Final 16 across four divisions, with semifinals Thursday and Friday and finals Saturday.",
+      "location": {
+        "@type": "Place",
+        "name": "McLane Stadium",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "East Lansing",
+          "addressRegion": "MI",
+          "addressCountry": "US"
+        }
+      },
+      "organizer": {
+        "@type": "SportsOrganization",
+        "name": "Michigan High School Athletic Association",
+        "alternateName": "MHSAA",
+        "url": "https://www.mhsaa.com/"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "name": "Michigan HS Baseball — The Final 16",
+      "description": "The 16 teams headed to the MHSAA state finals at McLane Stadium, by division, with records.",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1,  "item": { "@type": "SportsTeam", "name": "Brownstown Woodhaven", "description": "Division 1 · 34-5-1 · Brownstown" } },
+        { "@type": "ListItem", "position": 2,  "item": { "@type": "SportsTeam", "name": "Mattawan", "description": "Division 1 · 29-8 · Mattawan" } },
+        { "@type": "ListItem", "position": 3,  "item": { "@type": "SportsTeam", "name": "Rochester Adams", "description": "Division 1 · 28-8 · Rochester" } },
+        { "@type": "ListItem", "position": 4,  "item": { "@type": "SportsTeam", "name": "Detroit Catholic Central", "description": "Division 1 · 27-12 · Detroit" } },
+        { "@type": "ListItem", "position": 5,  "item": { "@type": "SportsTeam", "name": "GR Kenowa Hills", "description": "Division 2 · 35-2 · Grand Rapids" } },
+        { "@type": "ListItem", "position": 6,  "item": { "@type": "SportsTeam", "name": "Orchard Lake St. Mary's", "description": "Division 2 · 32-5 · Orchard Lake" } },
+        { "@type": "ListItem", "position": 7,  "item": { "@type": "SportsTeam", "name": "Vicksburg", "description": "Division 2 · 30-7 · Vicksburg" } },
+        { "@type": "ListItem", "position": 8,  "item": { "@type": "SportsTeam", "name": "Dearborn Divine Child", "description": "Division 2 · 29-6 · Dearborn" } },
+        { "@type": "ListItem", "position": 9,  "item": { "@type": "SportsTeam", "name": "TC St. Francis", "description": "Division 3 · 32-5 · Traverse City" } },
+        { "@type": "ListItem", "position": 10, "item": { "@type": "SportsTeam", "name": "Rochester Hills Lutheran NW", "description": "Division 3 · 28-6 · Rochester Hills" } },
+        { "@type": "ListItem", "position": 11, "item": { "@type": "SportsTeam", "name": "Kalamazoo Christian", "description": "Division 3 · 25-8 · Kalamazoo" } },
+        { "@type": "ListItem", "position": 12, "item": { "@type": "SportsTeam", "name": "Detroit Edison", "description": "Division 3 · 23-8 · Detroit" } },
+        { "@type": "ListItem", "position": 13, "item": { "@type": "SportsTeam", "name": "Mt. Pleasant Sacred Heart", "description": "Division 4 · 36-4 · Mount Pleasant" } },
+        { "@type": "ListItem", "position": 14, "item": { "@type": "SportsTeam", "name": "Royal Oak Shrine", "description": "Division 4 · 26-8 · Royal Oak" } },
+        { "@type": "ListItem", "position": 15, "item": { "@type": "SportsTeam", "name": "Marcellus", "description": "Division 4 · 21-11 · Marcellus" } },
+        { "@type": "ListItem", "position": 16, "item": { "@type": "SportsTeam", "name": "Painesdale Jeffers", "description": "Division 4 · 15-8 · Painesdale" } }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://itsmondayyall.com/high-school.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Where are the MHSAA high school baseball finals played?",
+          "acceptedAnswer": { "@type": "Answer", "text": "At McLane Stadium on the campus of Michigan State University in East Lansing, Michigan." }
+        },
+        {
+          "@type": "Question",
+          "name": "When are the Michigan high school baseball finals?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Semifinals are played Thursday and Friday and the state finals are Saturday. Divisions 2 and 3 play semifinals Thursday; Divisions 1 and 4 play Friday." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which team has the best record in the Final 16?",
+          "acceptedAnswer": { "@type": "Answer", "text": "GR Kenowa Hills, at 35-2 — the best record in the field — favored to win Division 2." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which team has the most wins?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Mt. Pleasant Sacred Heart, with 36 wins (36-4), the most of any team headed to East Lansing, in Division 4." }
+        },
+        {
+          "@type": "Question",
+          "name": "Are any Detroit teams in the Final 16?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes — Detroit Catholic Central in Division 1 and Detroit Edison in Division 3." }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is the biggest underdog in the field?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Painesdale Jeffers, at 15-8 — an Upper Peninsula program with the longest road to McLane, in Division 4." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body id="top">
 
@@ -366,6 +495,38 @@
   <p class="trust">Records and matchups are sourced from the MHSAA and verified before publishing. Spot an error, or want a removal? <a href="index.html#rundown" style="color:var(--accent)">Email us</a> — we fix it same day.</p>
 </section>
 
+<!-- ================= FAQ ================= -->
+<!-- Answers here MUST match the FAQPage JSON-LD in <head> word-for-word. -->
+<section class="wrap sec" id="faq">
+  <div class="sec-head"><span class="title">Michigan HS Baseball Finals — FAQ</span></div>
+  <div class="faq">
+    <details open>
+      <summary>Where are the MHSAA high school baseball finals played?</summary>
+      <p class="a">At McLane Stadium on the campus of Michigan State University in East Lansing, Michigan.</p>
+    </details>
+    <details>
+      <summary>When are the Michigan high school baseball finals?</summary>
+      <p class="a">Semifinals are played Thursday and Friday and the state finals are Saturday. Divisions 2 and 3 play semifinals Thursday; Divisions 1 and 4 play Friday.</p>
+    </details>
+    <details>
+      <summary>Which team has the best record in the Final 16?</summary>
+      <p class="a">GR Kenowa Hills, at 35-2 — the best record in the field — favored to win Division 2.</p>
+    </details>
+    <details>
+      <summary>Which team has the most wins?</summary>
+      <p class="a">Mt. Pleasant Sacred Heart, with 36 wins (36-4), the most of any team headed to East Lansing, in Division 4.</p>
+    </details>
+    <details>
+      <summary>Are any Detroit teams in the Final 16?</summary>
+      <p class="a">Yes — Detroit Catholic Central in Division 1 and Detroit Edison in Division 3.</p>
+    </details>
+    <details>
+      <summary>Who is the biggest underdog in the field?</summary>
+      <p class="a">Painesdale Jeffers, at 15-8 — an Upper Peninsula program with the longest road to McLane, in Division 4.</p>
+    </details>
+  </div>
+</section>
+
 <!-- ================= FOOTER ================= -->
 <footer>
   <div class="wrap foot-in">
@@ -427,5 +588,8 @@
     });
   });
 </script>
+<!-- Cloudflare Web Analytics -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b91c7943479b44d0b441e3875d0e6efa"}'></script>
+<!-- End Cloudflare Web Analytics -->
 </body>
 </html>
