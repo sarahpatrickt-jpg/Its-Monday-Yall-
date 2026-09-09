@@ -1010,15 +1010,16 @@
         var rb=((b.score||{}).sortRank)||((b.score||{}).rank)||999;
         return ra-rb;
       });
+      // Before any games are final everyone is rank 1, which reads as a bug. Dash it instead.
       var played=0;
+      ents.forEach(function(e){var r=(e.score||{}).record||{};played+=(r.wins||0)+(r.losses||0)+(r.ties||0);});
       var html=ents.map(function(e,i){
         var sc=e.score||{}, rec=sc.record||{};
         var nm=((e.name||'').trim())||((e.member||{}).displayName||'Entry');
         var w=rec.wins||0, l=rec.losses||0, t=rec.ties||0;
-        played+=w+l+t;
         var tag=hostTag(nm);
         return '<tr'+(tag?' class="host"':'')+'>'+
-          '<td class="rk">'+(sc.rank||i+1)+'</td>'+
+          '<td class="rk">'+(played?(sc.rank||i+1):'&ndash;')+'</td>'+
           '<td class="ent">'+pesc(nm)+(tag?'<span class="pk-tag">'+tag+'</span>':'')+'</td>'+
           '<td class="wl">'+w+'-'+l+(t?'-'+t:'')+'</td>'+
           '<td class="pts">'+(sc.overallScore||0)+'</td></tr>';
