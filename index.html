@@ -146,6 +146,27 @@
   .board-src{font-family:var(--cond);font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:var(--dim-2);margin-top:14px;text-align:right}
   .skel .odds{min-height:15px;border-top-color:var(--border-soft)}
 
+  /* Pick'em Championship — live standings from the ESPN group (public API, no key) */
+  .pk-join{font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;background:var(--accent);color:#fff;padding:9px 17px;border-radius:4px;transition:filter .15s;white-space:nowrap}
+  .pk-join:hover{filter:brightness(1.09)}
+  .pk-wrap{margin-top:18px;background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden}
+  table.pk{width:100%;border-collapse:collapse}
+  table.pk th{text-align:left;font-family:var(--cond);font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:11px 14px;background:var(--card-2);font-weight:700}
+  table.pk th.r,table.pk td.r{text-align:right}
+  table.pk td{padding:12px 14px;border-top:1px solid var(--divider);font-size:15px;vertical-align:middle}
+  table.pk td.rk{font-family:var(--anton);font-size:17px;color:var(--ghost-2);width:52px}
+  table.pk tr.host td.rk{color:var(--accent)}
+  table.pk td.ent{font-family:var(--cond);font-weight:700;font-size:16px;color:var(--bright-2)}
+  table.pk tr.host td.ent{color:#fff}
+  table.pk tr.host{background:rgba(232,16,43,.07)}
+  table.pk td.wl{font-family:var(--cond);font-size:15px;color:var(--muted);text-align:right;white-space:nowrap}
+  table.pk td.pts{font-family:var(--anton);font-size:17px;font-variant-numeric:tabular-nums;color:var(--bright);text-align:right;width:74px}
+  .pk-tag{display:inline-block;margin-left:9px;font-family:var(--cond);font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:var(--accent);padding:2px 8px;border-radius:20px;vertical-align:middle}
+  .pk-note{padding:15px 14px;text-align:center;font-family:var(--cond);font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);border-top:1px solid var(--divider)}
+  .pk-src{font-family:var(--cond);font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:var(--dim-2);margin-top:12px;text-align:right}
+  .pk-src a{color:var(--dim);text-decoration:underline}
+  .skel .sbar{display:block;background:var(--badge);border-radius:4px;height:13px}
+
   /* Loading skeletons — reserve layout space so async content doesn't shift the page (CLS) */
   @keyframes skelpulse{0%,100%{opacity:.62}50%{opacity:.28}}
   .skel{pointer-events:none;animation:skelpulse 1.6s ease-in-out infinite}
@@ -430,7 +451,7 @@
     <nav class="nav-links" id="navLinks">
       <a href="#top" class="active">The Show</a>
       <a href="#board">Scores</a>
-      <a href="#board">Standings</a>
+      <a href="#pickem">Pick'em</a>
       <a href="#recent">Hot Takes</a>
       <a href="#fnl">Friday Night</a>
     </nav>
@@ -538,6 +559,25 @@
     </div>
     <a class="hs-more" href="#fnl">HS scores →</a>
   </div>
+</section>
+
+<!-- ================= PICK'EM CHAMPIONSHIP ================= -->
+<!-- Live standings from the public ESPN Pick'em group API (CORS-open, no key). -->
+<section class="wrap sec" id="pickem">
+  <div class="sec-head">
+    <div style="display:flex;align-items:baseline;gap:16px">
+      <span class="title">Pick'em <span class="accent">Championship</span></span>
+      <span class="subt">Think you can beat Brad and Fred?</span>
+    </div>
+    <a class="pk-join" href="https://fantasy.espn.com/games/nfl-pickem-2026/group?id=222d7fa0-4a07-4ee9-8d06-8ea15d219912&amp;joining=true" target="_blank" rel="noopener">Join the Group &rarr;</a>
+  </div>
+  <div class="pk-wrap" id="pkWrap">
+    <table class="pk">
+      <thead><tr><th>Rank</th><th>Entry</th><th class="r">W-L</th><th class="r">Pts</th></tr></thead>
+      <tbody id="pkBody"><tr class="skel" aria-hidden="true"><td class="rk"><span class="sbar" style="width:18px"></span></td><td class="ent"><span class="sbar" style="width:150px"></span></td><td class="wl"><span class="sbar" style="width:40px;margin-left:auto"></span></td><td class="pts"><span class="sbar" style="width:26px;margin-left:auto"></span></td></tr><tr class="skel" aria-hidden="true"><td class="rk"><span class="sbar" style="width:18px"></span></td><td class="ent"><span class="sbar" style="width:150px"></span></td><td class="wl"><span class="sbar" style="width:40px;margin-left:auto"></span></td><td class="pts"><span class="sbar" style="width:26px;margin-left:auto"></span></td></tr><tr class="skel" aria-hidden="true"><td class="rk"><span class="sbar" style="width:18px"></span></td><td class="ent"><span class="sbar" style="width:150px"></span></td><td class="wl"><span class="sbar" style="width:40px;margin-left:auto"></span></td><td class="pts"><span class="sbar" style="width:26px;margin-left:auto"></span></td></tr><tr class="skel" aria-hidden="true"><td class="rk"><span class="sbar" style="width:18px"></span></td><td class="ent"><span class="sbar" style="width:150px"></span></td><td class="wl"><span class="sbar" style="width:40px;margin-left:auto"></span></td><td class="pts"><span class="sbar" style="width:26px;margin-left:auto"></span></td></tr><tr class="skel" aria-hidden="true"><td class="rk"><span class="sbar" style="width:18px"></span></td><td class="ent"><span class="sbar" style="width:150px"></span></td><td class="wl"><span class="sbar" style="width:40px;margin-left:auto"></span></td><td class="pts"><span class="sbar" style="width:26px;margin-left:auto"></span></td></tr><tr class="skel" aria-hidden="true"><td class="rk"><span class="sbar" style="width:18px"></span></td><td class="ent"><span class="sbar" style="width:150px"></span></td><td class="wl"><span class="sbar" style="width:40px;margin-left:auto"></span></td><td class="pts"><span class="sbar" style="width:26px;margin-left:auto"></span></td></tr><tr class="skel" aria-hidden="true"><td class="rk"><span class="sbar" style="width:18px"></span></td><td class="ent"><span class="sbar" style="width:150px"></span></td><td class="wl"><span class="sbar" style="width:40px;margin-left:auto"></span></td><td class="pts"><span class="sbar" style="width:26px;margin-left:auto"></span></td></tr><tr class="skel" aria-hidden="true"><td class="rk"><span class="sbar" style="width:18px"></span></td><td class="ent"><span class="sbar" style="width:150px"></span></td><td class="wl"><span class="sbar" style="width:40px;margin-left:auto"></span></td><td class="pts"><span class="sbar" style="width:26px;margin-left:auto"></span></td></tr><tr class="skel" aria-hidden="true"><td class="rk"><span class="sbar" style="width:18px"></span></td><td class="ent"><span class="sbar" style="width:150px"></span></td><td class="wl"><span class="sbar" style="width:40px;margin-left:auto"></span></td><td class="pts"><span class="sbar" style="width:26px;margin-left:auto"></span></td></tr><tr class="skel" aria-hidden="true"><td class="rk"><span class="sbar" style="width:18px"></span></td><td class="ent"><span class="sbar" style="width:150px"></span></td><td class="wl"><span class="sbar" style="width:40px;margin-left:auto"></span></td><td class="pts"><span class="sbar" style="width:26px;margin-left:auto"></span></td></tr></tbody>
+    </table>
+  </div>
+  <div class="pk-src">Standings via <a href="https://fantasy.espn.com/games/nfl-pickem-2026/group?id=222d7fa0-4a07-4ee9-8d06-8ea15d219912&amp;joining=true" target="_blank" rel="noopener">ESPN Pick'em</a>. Free to play.</div>
 </section>
 
 <!-- ================= FRIDAY NIGHT LIGHTS ================= -->
@@ -942,6 +982,58 @@
     });
     load();
     setInterval(load,60000);
+  })();
+
+  // Pick'em Championship — live group standings from ESPN's public gambit API.
+  // No key, no login; CORS is open. Picks of other members are not exposed, only records.
+  (function(){
+    var body=document.getElementById('pkBody'); if(!body) return;
+    var GID='222d7fa0-4a07-4ee9-8d06-8ea15d219912';
+    var API='https://gambit-api.fantasy.espn.com/apis/v1/challenges/nfl-pickem-2026/groups/'+GID;
+    var wrap=document.getElementById('pkWrap');
+    function pesc(x){return String(x==null?'':x).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+    function hostTag(n){
+      if(/youragentbrad/i.test(n)) return 'Brad';
+      if(/freddy|t\.g\.i/i.test(n)) return 'Fred';
+      return '';
+    }
+    function note(txt){
+      var old=wrap.querySelector('.pk-note'); if(old) old.parentNode.removeChild(old);
+      if(!txt) return;
+      var d=document.createElement('div'); d.className='pk-note'; d.textContent=txt; wrap.appendChild(d);
+    }
+    function render(d){
+      var ents=(d&&d.entries)||[];
+      if(!ents.length){ note('Standings are warming up. Check back soon.'); return; }
+      ents=ents.slice().sort(function(a,b){
+        var ra=((a.score||{}).sortRank)||((a.score||{}).rank)||999;
+        var rb=((b.score||{}).sortRank)||((b.score||{}).rank)||999;
+        return ra-rb;
+      });
+      var played=0;
+      var html=ents.map(function(e,i){
+        var sc=e.score||{}, rec=sc.record||{};
+        var nm=((e.name||'').trim())||((e.member||{}).displayName||'Entry');
+        var w=rec.wins||0, l=rec.losses||0, t=rec.ties||0;
+        played+=w+l+t;
+        var tag=hostTag(nm);
+        return '<tr'+(tag?' class="host"':'')+'>'+
+          '<td class="rk">'+(sc.rank||i+1)+'</td>'+
+          '<td class="ent">'+pesc(nm)+(tag?'<span class="pk-tag">'+tag+'</span>':'')+'</td>'+
+          '<td class="wl">'+w+'-'+l+(t?'-'+t:'')+'</td>'+
+          '<td class="pts">'+(sc.overallScore||0)+'</td></tr>';
+      }).join('');
+      body.innerHTML=html;
+      note(played?'':'Week 1 is underway. Standings fill in as games go final.');
+    }
+    function load(){
+      fetch(API,{credentials:'omit'})
+        .then(function(r){return r.ok?r.json():null;})
+        .then(function(d){ if(d) render(d); })
+        .catch(function(){ if(!body.querySelector('td.ent')) note('Standings are taking a breather. Check back soon.'); });
+    }
+    load();
+    setInterval(load,300000);
   })();
 
   // Newsletter forms — submit straight into the Beehiiv list via a hidden-iframe
